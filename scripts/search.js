@@ -25,16 +25,115 @@ class SearchManager {
     this.currentPreviewText = 'The quick brown fox jumps over the lazy dog';
     this.currentSize = 18;
     
-    // Système de synonymes
-    this.synonyms = {
-      'vintage': ['vintage', 'retro', 'old', 'classic', 'antique', 'ancient'],
-      'elegant': ['elegant', 'sophisticated', 'refined', 'classy', 'graceful'],
-      'script': ['script', 'handwriting', 'cursive', 'calligraphy', 'handwritten'],
-      'modern': ['modern', 'contemporary', 'clean', 'minimal', 'simple'],
-      'bold': ['bold', 'strong', 'heavy', 'thick', 'fat'],
-      'light': ['light', 'thin', 'slim', 'delicate', 'fine'],
-      'playful': ['playful', 'fun', 'cheerful', 'happy', 'joyful'],
-      'serious': ['serious', 'professional', 'business', 'formal', 'corporate']
+    // Dictionnaire sémantique exhaustif avec domaines contextuels
+    this.semanticDictionary = {
+      // === STYLES VISUELS ===
+      'vintage': {
+        synonyms: ['vintage', 'retro', 'old', 'classic', 'antique', 'ancient', 'nostalgic', 'aged', 'historic'],
+        contexts: ['decoration', 'restaurant', 'bar', 'boutique', 'artisanat'],
+        fonts: ['serif', 'slab', 'decorative']
+      },
+      'elegant': {
+        synonyms: ['elegant', 'sophisticated', 'refined', 'classy', 'graceful', 'chic', 'luxe', 'premium', 'noble'],
+        contexts: ['mode', 'beaute', 'mariage', 'hotel', 'bijouterie', 'parfum'],
+        fonts: ['serif', 'script', 'thin']
+      },
+      'modern': {
+        synonyms: ['modern', 'contemporary', 'clean', 'minimal', 'simple', 'fresh', 'actuel', 'tendance'],
+        contexts: ['tech', 'startup', 'design', 'architecture', 'digital'],
+        fonts: ['sans-serif', 'geometric', 'minimal']
+      },
+      'playful': {
+        synonyms: ['playful', 'fun', 'cheerful', 'happy', 'joyful', 'coloré', 'amusant', 'dynamique'],
+        contexts: ['enfant', 'jeu', 'animation', 'evenement', 'fete'],
+        fonts: ['display', 'rounded', 'decorative']
+      },
+
+      // === DOMAINES D'ACTIVITÉ ===
+      'cosmetique': {
+        synonyms: ['cosmétique', 'beauté', 'maquillage', 'skincare', 'parfum', 'spa', 'wellness', 'soin'],
+        contexts: ['elegant', 'feminin', 'doux', 'premium'],
+        fonts: ['script', 'serif', 'thin', 'elegant']
+      },
+      'cuisine': {
+        synonyms: ['cuisine', 'restaurant', 'food', 'gastronomie', 'chef', 'bistrot', 'brasserie', 'cafe'],
+        contexts: ['vintage', 'artisanal', 'chaleureux', 'gourmand'],
+        fonts: ['serif', 'slab', 'script', 'handwritten']
+      },
+      'automobile': {
+        synonyms: ['automobile', 'voiture', 'garage', 'mécanique', 'motor', 'auto', 'véhicule', 'conduite'],
+        contexts: ['masculin', 'technique', 'puissant', 'vitesse'],
+        fonts: ['sans-serif', 'bold', 'industrial', 'strong']
+      },
+      'tech': {
+        synonyms: ['technologie', 'digital', 'software', 'app', 'web', 'startup', 'innovation', 'code'],
+        contexts: ['modern', 'clean', 'professionnel', 'futuriste'],
+        fonts: ['sans-serif', 'monospace', 'geometric', 'minimal']
+      },
+      'mode': {
+        synonyms: ['mode', 'fashion', 'vêtement', 'style', 'tendance', 'couture', 'prêt-à-porter'],
+        contexts: ['elegant', 'chic', 'moderne', 'artistique'],
+        fonts: ['serif', 'script', 'display', 'fashion']
+      },
+      'sport': {
+        synonyms: ['sport', 'fitness', 'gym', 'athlétique', 'performance', 'training', 'workout'],
+        contexts: ['dynamique', 'energie', 'mouvement', 'puissant'],
+        fonts: ['sans-serif', 'bold', 'impact', 'strong']
+      },
+      'enfant': {
+        synonyms: ['enfant', 'kids', 'bébé', 'jouet', 'école', 'éducation', 'famille', 'junior'],
+        contexts: ['playful', 'coloré', 'doux', 'amusant'],
+        fonts: ['rounded', 'playful', 'comic', 'friendly']
+      },
+      'medical': {
+        synonyms: ['médical', 'santé', 'hôpital', 'docteur', 'clinique', 'pharmacie', 'soin', 'thérapie'],
+        contexts: ['professionnel', 'serieux', 'confiance', 'clean'],
+        fonts: ['sans-serif', 'clean', 'readable', 'professional']
+      },
+      'finance': {
+        synonyms: ['finance', 'banque', 'assurance', 'investissement', 'conseil', 'comptable', 'audit'],
+        contexts: ['serieux', 'professionnel', 'confiance', 'stable'],
+        fonts: ['serif', 'classic', 'professional', 'trustworthy']
+      },
+      'art': {
+        synonyms: ['art', 'artistique', 'créatif', 'galerie', 'peinture', 'sculpture', 'design', 'culture'],
+        contexts: ['créatif', 'unique', 'expressif', 'avant-garde'],
+        fonts: ['display', 'artistic', 'unique', 'creative']
+      },
+
+      // === CARACTÉRISTIQUES TYPOGRAPHIQUES ===
+      'bold': {
+        synonyms: ['bold', 'strong', 'heavy', 'thick', 'fat', 'gras', 'épais', 'puissant'],
+        contexts: ['impact', 'titre', 'masculine', 'force'],
+        fonts: ['bold', 'black', 'heavy', 'strong']
+      },
+      'light': {
+        synonyms: ['light', 'thin', 'slim', 'delicate', 'fine', 'léger', 'délicat'],
+        contexts: ['elegant', 'feminin', 'subtil', 'raffiné'],
+        fonts: ['thin', 'light', 'ultralight', 'delicate']
+      },
+      'script': {
+        synonyms: ['script', 'handwriting', 'cursive', 'calligraphy', 'handwritten', 'manuscrit', 'écrit'],
+        contexts: ['personnel', 'invitation', 'signature', 'artisanal'],
+        fonts: ['script', 'cursive', 'handwritten', 'calligraphy']
+      },
+
+      // === AMBIANCES & ÉMOTIONS ===
+      'luxe': {
+        synonyms: ['luxe', 'premium', 'haut-de-gamme', 'prestige', 'exclusif', 'raffiné'],
+        contexts: ['elegant', 'cher', 'qualite', 'elite'],
+        fonts: ['serif', 'elegant', 'classic', 'premium']
+      },
+      'naturel': {
+        synonyms: ['naturel', 'bio', 'écologique', 'vert', 'organic', 'nature', 'environnement'],
+        contexts: ['authentique', 'sain', 'responsable', 'terre'],
+        fonts: ['organic', 'handwritten', 'natural', 'earthy']
+      },
+      'industriel': {
+        synonyms: ['industriel', 'factory', 'manufacture', 'métal', 'béton', 'urbain', 'brut'],
+        contexts: ['masculin', 'robuste', 'technique', 'urban'],
+        fonts: ['industrial', 'stencil', 'mechanical', 'bold']
+      }
     };
     
     this.init();
@@ -190,21 +289,111 @@ class SearchManager {
       .trim();
   }
 
-  // Fonction pour expandre une query avec les synonymes
+  // Fonction avancée pour expandre une query avec croisement sémantique
   expandQuery(query) {
     const normalizedQuery = this.normalizeString(query);
     const terms = normalizedQuery.split(/\s+|,/).filter(term => term.length > 0);
     let expandedTerms = [...terms];
+    let matchedContexts = new Set();
+    let matchedFontTypes = new Set();
 
+    // Phase 1: Expansion directe des synonymes
     terms.forEach(term => {
-      Object.keys(this.synonyms).forEach(key => {
-        if (this.synonyms[key].includes(term)) {
-          expandedTerms = [...expandedTerms, ...this.synonyms[key]];
+      Object.keys(this.semanticDictionary).forEach(conceptKey => {
+        const concept = this.semanticDictionary[conceptKey];
+        
+        // Si le terme correspond à un synonyme
+        if (concept.synonyms.some(synonym => 
+          this.normalizeString(synonym).includes(term) || 
+          term.includes(this.normalizeString(synonym))
+        )) {
+          // Ajouter tous les synonymes
+          expandedTerms = [...expandedTerms, ...concept.synonyms];
+          
+          // Collecter les contextes associés
+          concept.contexts.forEach(context => matchedContexts.add(context));
+          
+          // Collecter les types de fonts recommandés
+          concept.fonts.forEach(fontType => matchedFontTypes.add(fontType));
         }
       });
     });
 
-    return [...new Set(expandedTerms)]; // Supprime les doublons
+    // Phase 2: Expansion contextuelle croisée
+    // Si on a trouvé des contextes, chercher d'autres concepts liés
+    matchedContexts.forEach(context => {
+      Object.keys(this.semanticDictionary).forEach(conceptKey => {
+        const concept = this.semanticDictionary[conceptKey];
+        
+        // Si ce concept partage des contextes ou si le contexte est dans ses synonymes
+        if (concept.contexts.includes(context) || 
+            concept.synonyms.includes(context) ||
+            conceptKey === context) {
+          
+          // Ajouter une partie de ses synonymes (les plus pertinents)
+          const relevantSynonyms = concept.synonyms.slice(0, 3);
+          expandedTerms = [...expandedTerms, ...relevantSynonyms];
+          
+          // Ajouter ses types de fonts
+          concept.fonts.forEach(fontType => matchedFontTypes.add(fontType));
+        }
+      });
+    });
+
+    // Phase 3: Ajouter les types de fonts comme termes de recherche
+    matchedFontTypes.forEach(fontType => {
+      expandedTerms.push(fontType);
+    });
+
+    // Retourner les termes uniques avec un score de pertinence implicite
+    const uniqueTerms = [...new Set(expandedTerms)];
+    
+    // Garder une trace des contextes et types de fonts pour le scoring
+    this.lastSearchContext = {
+      contexts: Array.from(matchedContexts),
+      fontTypes: Array.from(matchedFontTypes),
+      originalTerms: terms
+    };
+
+    return uniqueTerms;
+  }
+
+  // Fonction pour scorer la pertinence d'une font selon le contexte
+  scoreFontRelevance(font, searchContext) {
+    let score = 0;
+    const fontName = this.normalizeString(font.family);
+    const fontCategory = this.normalizeString(font.category);
+
+    if (!searchContext) return score;
+
+    // Score basé sur les types de fonts recommandés
+    searchContext.fontTypes.forEach(fontType => {
+      if (fontCategory.includes(fontType) || fontName.includes(fontType)) {
+        score += 10;
+      }
+    });
+
+    // Score basé sur les contextes
+    searchContext.contexts.forEach(context => {
+      const contextConcept = this.semanticDictionary[context];
+      if (contextConcept) {
+        // Vérifier si le nom de la font contient des indices du contexte
+        contextConcept.synonyms.forEach(synonym => {
+          if (fontName.includes(this.normalizeString(synonym))) {
+            score += 5;
+          }
+        });
+      }
+    });
+
+    // Bonus pour les termes originaux de la recherche
+    searchContext.originalTerms.forEach(term => {
+      if (fontName.includes(term) || fontCategory.includes(term)) {
+        score += 15;
+      }
+    });
+
+    return score;
   }
 
   async handleSearch(query) {
@@ -221,9 +410,19 @@ class SearchManager {
       // Simulate API call delay
       await this.delay(500);
       
-      // Expand query with synonyms
+      // Expand query with semantic dictionary
       const expandedTerms = this.expandQuery(query);
       const expandedQuery = expandedTerms.join(' ');
+      
+      // Debug: afficher les correspondances trouvées
+      if (this.lastSearchContext) {
+        console.log('🔍 Recherche sémantique:', {
+          query: query,
+          contextes: this.lastSearchContext.contexts,
+          fontTypes: this.lastSearchContext.fontTypes,
+          expandedTerms: expandedTerms.slice(0, 10) // Limiter l'affichage
+        });
+      }
       
       const results = await window.fontAPI.searchFonts(expandedQuery, this.currentFilters);
       this.displayResults(results);
@@ -271,6 +470,14 @@ class SearchManager {
   }
 
   displayResults(results, title = null) {
+    // Appliquer le scoring sémantique si on a un contexte de recherche
+    if (this.lastSearchContext && results.length > 0) {
+      results = results.map(font => ({
+        ...font,
+        relevanceScore: this.scoreFontRelevance(font, this.lastSearchContext)
+      })).sort((a, b) => (b.relevanceScore || 0) - (a.relevanceScore || 0));
+    }
+    
     this.currentResults = results;
     this.displayedResults = results.slice(0, this.resultsPerPage);
     
