@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FontCook - Mijoter vos typographies</title>
+    <meta name="description" content="Découvrez, explorez et cuisinez vos polices préférées avec FontCook">
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo">
+                    <span class="logo-icon">👨‍🍳</span>
+                    <h1 class="logo-text">FontCook</h1>
+                </div>
+                
+                <!-- Search in nav -->
+                <div class="search-bar-nav">
+                    <input 
+                        type="text" 
+                        id="search-input" 
+                        class="search-input-nav" 
+                        placeholder="vintage, elegant, script..."
+                        autocomplete="off"
+                    >
+                    <button class="search-btn-nav" id="search-btn">
+                        <span class="search-text">Rechercher</span>
+                    </button>
+                </div>
+                
+                <div class="header-actions">
+                    <button class="theme-toggle" id="theme-toggle" aria-label="Changer de thème">
+                        <span class="theme-icon">🌙</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+        <!-- Tags Section -->
+        <section class="tags-section" id="tags">
+            <div class="container">
+                <div class="tags-intro">
+                    <p class="tags-description">Trouvez votre font parfaite en quelques mots.</p>
+                </div>
+                <div class="search-tags" id="search-tags">
+                    <div class="popular-tags">
+                        <button class="tag-btn-large" data-tag="vintage">Vintage</button>
+                        <button class="tag-btn-large" data-tag="elegant">Elegant</button>
+                        <button class="tag-btn-large" data-tag="script">Script</button>
+                        <button class="tag-btn-large" data-tag="sans-serif">Sans-serif</button>
+                        <button class="tag-btn-large" data-tag="serif">Serif</button>
+                        <button class="tag-btn-large" data-tag="display">Display</button>
+                        <button class="tag-btn-large" data-tag="monospace">Mono</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Results Section -->
+        <section class="results-section" id="results">
+            <div class="container">
+                <div class="results-header">
+                    <h2 class="section-title">Résultats de la recherche</h2>
+                    <div class="results-count" id="results-count">
+                        <span class="cooking-loader hidden" id="cooking-loader">🍳 Cuisson en cours...</span>
+                    </div>
+                </div>
+                
+                <div class="font-grid" id="font-grid">
+                    <!-- Les polices seront ajoutées dynamiquement -->
+                </div>
+                
+                <div class="load-more-container">
+                    <button class="btn btn-secondary cook-more-btn" id="load-more" style="display: none;">
+                        <span class="cook-icon">🍳</span>
+                        <span class="cook-text">Cook me more</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Preview Controls - Fixed at bottom -->
+    <div class="preview-controls-fixed" id="preview-controls">
+        <div class="preview-controls-inner">
+            <button class="preview-toggle-btn" id="preview-toggle" aria-label="Minimiser/Agrandir les contrôles">
+                <span class="toggle-icon">−</span>
+            </button>
+            
+            <div class="preview-controls-content" id="preview-content">
+                <div class="preview-text-control">
+                    <label for="preview-text">Texte d'aperçu :</label>
+                    <input 
+                        type="text" 
+                        id="preview-text" 
+                        class="preview-text-input"
+                        placeholder="Tapez votre texte..."
+                        value="The quick brown fox jumps over the lazy dog"
+                    >
+                </div>
+                
+                <div class="size-control-manual">
+                    <label for="font-size-input">Taille (px) :</label>
+                    <div class="font-size-wrapper">
+                        <input 
+                            type="number" 
+                            id="font-size-input" 
+                            class="font-size-input"
+                            value="18"
+                            min="8"
+                            max="72"
+                            step="1"
+                        >
+                        <div class="font-size-arrows">
+                            <button class="size-arrow size-up" type="button">▲</button>
+                            <button class="size-arrow size-down" type="button">▼</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <p class="footer-text">
+                    &copy; 2024 FontCook. Explorez, prévisualisez et intégrez facilement les meilleures Google Fonts.
+                </p>
+                <p class="footer-credit">
+                    Créé par <a href="https://benoit-duriez.com" target="_blank" rel="noopener noreferrer" class="footer-link">Benoit Duriez</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="scripts/theme.js"></script>
+    <script src="scripts/tags.js"></script>
+    <script src="scripts/search.js"></script>
+    <script src="scripts/api.js"></script>
+    <script src="scripts/app.js"></script>
+</body>
+</html>
