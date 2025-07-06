@@ -288,6 +288,29 @@ class FontAPI {
       return cached;
     }
 
+    // Détecter l'environnement local et passer directement en mode fallback
+    const isLocal = window.location.protocol === 'file:' || 
+                   window.location.hostname === 'localhost' || 
+                   window.location.hostname === '127.0.0.1' ||
+                   window.location.hostname === '';
+    
+    if (isLocal) {
+      console.log('🍳 FontCook: Local environment detected, using fallback fonts');
+      const fallbackFonts = this.fallbackFonts.map(font => ({
+        name: font.family,
+        family: `'${font.family}', ${font.category}`,
+        category: font.category,
+        preview: 'The quick brown fox jumps over the lazy dog',
+        popularity: font.popularity,
+        variants: font.variants,
+        subsets: font.subsets,
+        description: font.description
+      }));
+      
+      this.saveToCache(cacheKey, fallbackFonts);
+      return fallbackFonts;
+    }
+
     try {
       if (!this.quotaExceeded) {
         // Essayer l'API Google Fonts

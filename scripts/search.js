@@ -353,10 +353,10 @@ class SearchManager {
     
     try {
       const popularFonts = await window.fontAPI.getPopularFonts();
-      this.displayResults(popularFonts, 'Polices populaires');
+      this.displayResults(popularFonts, 'Popular fonts');
     } catch (error) {
       console.error('Popular fonts error:', error);
-      this.showError('Erreur lors du chargement des polices populaires.');
+      this.showError('Error loading popular fonts.');
     } finally {
       this.hideLoader();
     }
