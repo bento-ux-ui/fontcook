@@ -294,7 +294,11 @@ class FontAPI {
                    window.location.hostname === '127.0.0.1' ||
                    window.location.hostname === '';
     
-    if (isLocal) {
+    // Force fallback mode for testing - REMOVE THIS LINE WHEN API WORKS
+    console.log('🍳 FontCook: Current hostname:', window.location.hostname);
+    console.log('🍳 FontCook: Using fallback fonts for now');
+    
+    if (isLocal || true) { // Temporarily force fallback
       console.log('🍳 FontCook: Local environment detected, using fallback fonts');
       console.log('🍳 FontCook: Available fallback fonts:', this.fallbackFonts);
       
@@ -380,8 +384,8 @@ class FontAPI {
                    window.location.hostname === '127.0.0.1' ||
                    window.location.hostname === '';
     
-    if (isLocal) {
-      console.log('🍳 FontCook: Local environment detected for search, using fallback fonts');
+    if (isLocal || true) { // Temporarily force fallback for online too
+      console.log('🍳 FontCook: Using fallback fonts for search');
       
       if (!this.fallbackFonts || this.fallbackFonts.length === 0) {
         this.initializeFallbackFonts();
