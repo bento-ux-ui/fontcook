@@ -1409,20 +1409,25 @@ body {
 }
 
 .font-info h3 {
-  font-size: var(--text-xl);
-  font-weight: 500;
-  color: var(--text);
+  font-size: 32px;
+  font-weight: 600;
+  color: #2D3748;
   margin-bottom: var(--space-xs);
-  line-height: 1.3;
+  line-height: 1.2;
   /* Font name will be styled with its own font family via JS */
 }
 
+[data-theme="dark"] .font-info h3 {
+  color: #E2E8F0;
+}
+
 .font-category-enhanced {
-  color: var(--text-light);
-  font-size: var(--text-xs);
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  font-weight: 600;
+  color: #A0AEC0;
+  font-size: var(--text-sm);
+  text-transform: none;
+  letter-spacing: normal;
+  font-weight: 400;
+  text-transform: capitalize;
 }
 
 /* Font weights selector */
@@ -1451,14 +1456,14 @@ body {
   background: var(--surface-soft);
   border: 1px solid var(--border);
   border-radius: var(--border-radius-sm);
-  padding: var(--space-xs) var(--space-sm);
+  padding: 6px 8px;
   cursor: pointer;
   transition: all var(--transition-normal);
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-width: 50px;
-  font-size: var(--text-xs);
+  min-width: 42px;
+  font-size: 10px;
 }
 
 .weight-btn:hover {
@@ -1474,19 +1479,32 @@ body {
   transform: translateY(-1px);
 }
 
+[data-theme="dark"] .weight-btn {
+  color: var(--text);
+}
+
 [data-theme="dark"] .weight-btn.selected {
   color: var(--background) !important;
 }
 
+[data-theme="dark"] .weight-number {
+  color: inherit;
+}
+
+[data-theme="dark"] .weight-name {
+  color: inherit;
+  opacity: 0.7;
+}
+
 .weight-number {
   font-weight: 600;
-  font-size: var(--text-sm);
+  font-size: 11px;
 }
 
 .weight-name {
-  font-size: var(--text-xs);
-  opacity: 0.8;
-  margin-top: 2px;
+  font-size: 9px;
+  opacity: 0.7;
+  margin-top: 1px;
 }
 
 .font-actions-enhanced {
@@ -1498,17 +1516,17 @@ body {
 
 .font-action-btn-enhanced {
   flex: 1;
-  padding: var(--space-md) var(--space-lg);
+  padding: var(--space-sm) var(--space-md);
   font-size: var(--text-sm);
-  font-weight: 600;
+  font-weight: 500;
   border-radius: var(--border-radius-md);
   transition: all var(--transition-normal);
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: var(--space-sm);
+  gap: var(--space-xs);
   border: 1px solid var(--border);
-  min-height: 44px;
+  min-height: 36px;
 }
 
 .copy-css-btn {

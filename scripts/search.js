@@ -26,8 +26,8 @@ class SearchManager {
     this.currentSize = 18;
     
     // Use the massive semantic dictionary
-    // Use the massive semantic dictionary (969 words\!)
-    this.semanticDictionary = typeof SEMANTIC_DICTIONARY \!== 'undefined' ? SEMANTIC_DICTIONARY : {};
+    // Use the massive semantic dictionary (969 words!)
+    this.semanticDictionary = typeof SEMANTIC_DICTIONARY !== 'undefined' ? SEMANTIC_DICTIONARY : {};
 
     this.init();
   }
@@ -342,7 +342,7 @@ class SearchManager {
       this.displayResults(results);
     } catch (error) {
       console.error('Filter error:', error);
-      this.showError('Erreur lors du filtrage. Veuillez réessayer.');
+      this.showError('Error during filtering. Please try again.');
     } finally {
       this.hideLoader();
     }
@@ -449,7 +449,7 @@ class SearchManager {
       
       <div class="font-actions-enhanced">
         <button class="font-action-btn-enhanced copy-css-btn" onclick="fontSearch.copyFontCodeWithWeights('${font.family}', '${font.name}')">
-          📋 Copy CSS
+          {} Copy CSS
         </button>
       </div>
     `;
@@ -842,9 +842,9 @@ body {
     
     try {
       document.execCommand('copy');
-      this.showNotification('CSS copié !', 'success');
+      this.showNotification('CSS copied!', 'success');
     } catch (err) {
-      this.showNotification('Erreur lors de la copie', 'error');
+      this.showNotification('Copy error', 'error');
     }
     
     document.body.removeChild(textArea);

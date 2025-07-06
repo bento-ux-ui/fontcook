@@ -296,6 +296,13 @@ class FontAPI {
     
     if (isLocal) {
       console.log('🍳 FontCook: Local environment detected, using fallback fonts');
+      console.log('🍳 FontCook: Available fallback fonts:', this.fallbackFonts);
+      
+      if (!this.fallbackFonts || this.fallbackFonts.length === 0) {
+        console.log('🍳 FontCook: Initializing fallback fonts...');
+        this.initializeFallbackFonts();
+      }
+      
       const fallbackFonts = this.fallbackFonts.map(font => ({
         name: font.family,
         family: `'${font.family}', ${font.category}`,
@@ -307,6 +314,7 @@ class FontAPI {
         description: font.description
       }));
       
+      console.log('🍳 FontCook: Mapped fallback fonts:', fallbackFonts);
       this.saveToCache(cacheKey, fallbackFonts);
       return fallbackFonts;
     }
@@ -364,6 +372,58 @@ class FontAPI {
     
     if (cached) {
       return cached;
+    }
+
+    // Détecter l'environnement local et passer directement en mode fallback
+    const isLocal = window.location.protocol === 'file:' || 
+                   window.location.hostname === 'localhost' || 
+                   window.location.hostname === '127.0.0.1' ||
+                   window.location.hostname === '';
+    
+    if (isLocal) {
+      console.log('🍳 FontCook: Local environment detected for search, using fallback fonts');
+      
+      if (!this.fallbackFonts || this.fallbackFonts.length === 0) {
+        this.initializeFallbackFonts();
+      }
+      
+      // Mode dégradé : recherche dans les polices fallback
+      let results = this.fallbackFonts.filter(font => {
+        // Normalisation pour recherche sans accents
+        const normalizeText = (text) => text.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
+        const normalizedQuery = normalizeText(query);
+        const normalizedFamily = normalizeText(font.family);
+        const normalizedCategory = normalizeText(font.category);
+        
+        const matchesQuery = normalizedFamily.includes(normalizedQuery) ||
+                            normalizedCategory.includes(normalizedQuery) ||
+                            normalizedQuery.split(' ').some(term => 
+                              normalizedFamily.includes(term) || normalizedCategory.includes(term));
+        
+        const matchesCategory = !filters.category || 
+                              font.category.toLowerCase() === filters.category.toLowerCase();
+        
+        const matchesWeight = !filters.weight || 
+                            font.variants.some(variant => 
+                              this.normalizeWeight(variant) === filters.weight);
+        
+        return matchesQuery && matchesCategory && matchesWeight;
+      });
+      
+      // Transformer en format FontCook
+      results = results.map(font => ({
+        name: font.family,
+        family: `'${font.family}', ${font.category}`,
+        category: font.category,
+        preview: 'The quick brown fox jumps over the lazy dog',
+        popularity: font.popularity,
+        variants: font.variants,
+        subsets: font.subsets,
+        description: font.description
+      }));
+      
+      this.saveToCache(cacheKey, results);
+      return results;
     }
 
     try {
@@ -638,11 +698,11 @@ class FontAPI {
   getLoadingMessage() {
     const messages = [
       'Let FontCook cook... 👨‍🍳',
-      'Mijotage des polices en cours... 🍳',
-      'Préparation de vos typographies... ⏰',
-      'Le chef cherche les meilleures polices... 🔍',
-      'Cuisson des caractères... 🔥',
-      'Assaisonnement typographique... ✨'
+      'Cooking fonts... 🍳',
+      'Preparing your typography... ⏰',
+      'Chef is searching for the best fonts... 🔍',
+      'Cooking characters... 🔥',
+      'Typography seasoning... ✨'
     ];
     return messages[Math.floor(Math.random() * messages.length)];
   }
@@ -651,23 +711,23 @@ class FontAPI {
     const messages = {
       search: {
         icon: '🍽️',
-        title: 'Aucun plat trouvé',
-        message: 'Le chef n\'a pas trouvé de police correspondant à votre recherche. Essayez avec d\'autres ingrédients !'
+        title: 'No fonts found',
+        message: 'FontCook couldn\'t find any fonts matching your search. Try different ingredients!'
       },
       error: {
         icon: '🔥',
-        title: 'Oops ! Quelque chose a brûlé',
-        message: 'Une erreur s\'est produite en cuisine. Le chef essaie de réparer ça !'
+        title: 'Oops! Something went wrong',
+        message: 'An error occurred in the kitchen. The chef is trying to fix it!'
       },
       quota: {
         icon: '⏰',
-        title: 'Service terminé pour aujourd\'hui',
-        message: 'Le quota quotidien est atteint, mais vous pouvez toujours déguster nos polices de base !'
+        title: 'Daily quota reached',
+        message: 'Daily quota is reached, but you can still enjoy our basic fonts!'
       },
       offline: {
         icon: '📡',
-        title: 'Connexion interrompue',
-        message: 'Impossible de se connecter aux serveurs. Vérifiez votre connexion internet.'
+        title: 'Connection interrupted',
+        message: 'Unable to connect to servers. Check your internet connection.'
       }
     };
     
