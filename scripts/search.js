@@ -27,7 +27,13 @@ class SearchManager {
     
     // Use the massive semantic dictionary
     // Use the massive semantic dictionary (969 words!)
-    this.semanticDictionary = typeof SEMANTIC_DICTIONARY !== 'undefined' ? SEMANTIC_DICTIONARY : {};
+    try {
+      this.semanticDictionary = (typeof SEMANTIC_DICTIONARY !== 'undefined' && SEMANTIC_DICTIONARY) ? SEMANTIC_DICTIONARY : {};
+      console.log('🍳 FontCook: Semantic dictionary loaded:', Object.keys(this.semanticDictionary).length, 'concepts');
+    } catch (error) {
+      console.warn('🍳 FontCook: Error loading semantic dictionary:', error);
+      this.semanticDictionary = {};
+    }
 
     this.init();
   }

@@ -60,13 +60,20 @@ class FontCookApp {
   async initializeComponents() {
     // Components are initialized by their respective modules
     // We just need to wait for them to be available
-    await this.waitForGlobal('fontAPI');
-    await this.waitForGlobal('themeManager');
-    await this.waitForGlobal('fontSearch');
+    const fontAPI = await this.waitForGlobal('fontAPI');
+    const themeManager = await this.waitForGlobal('themeManager');
+    const fontSearch = await this.waitForGlobal('fontSearch');
     
-    this.components.fontAPI = window.fontAPI;
-    this.components.themeManager = window.themeManager;
-    this.components.searchManager = window.fontSearch;
+    this.components.fontAPI = fontAPI || window.fontAPI;
+    this.components.themeManager = themeManager || window.themeManager;
+    this.components.searchManager = fontSearch || window.fontSearch;
+    
+    // Log which components loaded successfully
+    console.log('🍳 FontCook components status:', {
+      fontAPI: !!this.components.fontAPI,
+      themeManager: !!this.components.themeManager,
+      searchManager: !!this.components.searchManager
+    });
   }
 
   waitForGlobal(globalName, timeout = 5000) {
@@ -75,9 +82,12 @@ class FontCookApp {
       
       const checkGlobal = () => {
         if (window[globalName]) {
+          console.log(`✅ ${globalName} loaded successfully`);
           resolve(window[globalName]);
         } else if (Date.now() - startTime > timeout) {
-          reject(new Error(`Timeout waiting for ${globalName}`));
+          console.warn(`⚠️ Timeout waiting for ${globalName}, continuing without it`);
+          // Don't reject, just resolve with null to continue execution
+          resolve(null);
         } else {
           setTimeout(checkGlobal, 100);
         }
