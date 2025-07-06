@@ -25,14 +25,18 @@ class SearchManager {
     this.currentPreviewText = 'The quick brown fox jumps over the lazy dog';
     this.currentSize = 18;
     
-    // Use the massive semantic dictionary
-    // Use the massive semantic dictionary (969 words!)
+    // Use the massive semantic dictionary (5000+ words!)
     try {
       this.semanticDictionary = (typeof SEMANTIC_DICTIONARY !== 'undefined' && SEMANTIC_DICTIONARY) ? SEMANTIC_DICTIONARY : {};
-      console.log('🍳 FontCook: Semantic dictionary loaded:', Object.keys(this.semanticDictionary).length, 'concepts');
+      this.keywordCollections = (typeof KEYWORD_COLLECTIONS !== 'undefined' && KEYWORD_COLLECTIONS) ? KEYWORD_COLLECTIONS : {};
+      this.phraseProcessor = new PhraseProcessor();
+      console.log('🍳 FontCook: Enhanced semantic dictionary loaded:', Object.keys(this.semanticDictionary).length, 'concepts');
+      console.log('🍳 FontCook: Keyword collections loaded:', Object.keys(this.keywordCollections).length, 'categories');
     } catch (error) {
       console.warn('🍳 FontCook: Error loading semantic dictionary:', error);
       this.semanticDictionary = {};
+      this.keywordCollections = {};
+      this.phraseProcessor = null;
     }
 
     this.init();
@@ -319,22 +323,56 @@ class SearchManager {
       // Simulate API call delay
       await this.delay(500);
       
-      // Expand query with semantic dictionary
-      const expandedTerms = this.expandQuery(query);
-      const expandedQuery = expandedTerms.join(' ');
+      let expandedQuery, searchContext;
       
-      // Debug: afficher les correspondances trouvées
-      if (this.lastSearchContext) {
-        console.log('🔍 Recherche sémantique:', {
+      // Use intelligent search if available, fallback to legacy
+      if (this.phraseProcessor && typeof intelligentFontSearch !== 'undefined') {
+        const intelligentResults = intelligentFontSearch(query);
+        
+        // Extract all synonyms from intelligent results for API search
+        const allSynonyms = new Set();
+        intelligentResults.results.forEach(result => {
+          if (result.data.synonyms) {
+            result.data.synonyms.forEach(synonym => allSynonyms.add(synonym));
+          }
+        });
+        
+        expandedQuery = Array.from(allSynonyms).slice(0, 20).join(' '); // Limit to prevent API overload
+        searchContext = {
+          intelligence: intelligentResults,
+          confidence: intelligentResults.confidence,
+          interpretation: intelligentResults.interpretation
+        };
+        
+        // Debug: Show intelligent search results
+        console.log('🧠 Intelligent Search Results:', {
           query: query,
-          contextes: this.lastSearchContext.contexts,
-          fontTypes: this.lastSearchContext.fontTypes,
-          expandedTerms: expandedTerms.slice(0, 10) // Limiter l'affichage
+          interpretation: intelligentResults.interpretation,
+          confidence: intelligentResults.confidence,
+          concepts: intelligentResults.results.map(r => r.concept),
+          expandedQuery: expandedQuery.slice(0, 100) + '...'
+        });
+        
+        // Show search interpretation to user
+        if (intelligentResults.confidence > 50) {
+          this.showSearchInterpretation(intelligentResults.interpretation);
+        }
+        
+      } else {
+        // Fallback to legacy search
+        const expandedTerms = this.expandQuery(query);
+        expandedQuery = expandedTerms.join(' ');
+        searchContext = this.lastSearchContext;
+        
+        console.log('🔍 Legacy Search:', {
+          query: query,
+          expandedTerms: expandedTerms.slice(0, 10)
         });
       }
       
       const results = await window.fontAPI.searchFonts(expandedQuery, this.currentFilters);
-      this.displayResults(results);
+      this.displayResults(results, null, searchContext);
+      
     } catch (error) {
       console.error('Search error:', error);
       this.showError('Error during search. Please try again.');
@@ -378,13 +416,22 @@ class SearchManager {
     }
   }
 
-  displayResults(results, title = null) {
-    // Appliquer le scoring sémantique si on a un contexte de recherche
-    if (this.lastSearchContext && results.length > 0) {
-      results = results.map(font => ({
-        ...font,
-        relevanceScore: this.scoreFontRelevance(font, this.lastSearchContext)
-      })).sort((a, b) => (b.relevanceScore || 0) - (a.relevanceScore || 0));
+  displayResults(results, title = null, searchContext = null) {
+    // Apply intelligent scoring if available, fallback to legacy
+    if (searchContext) {
+      if (searchContext.intelligence) {
+        // Use intelligent search scoring
+        results = results.map(font => ({
+          ...font,
+          relevanceScore: this.scoreIntelligentRelevance(font, searchContext.intelligence)
+        })).sort((a, b) => (b.relevanceScore || 0) - (a.relevanceScore || 0));
+      } else if (this.lastSearchContext) {
+        // Use legacy scoring
+        results = results.map(font => ({
+          ...font,
+          relevanceScore: this.scoreFontRelevance(font, this.lastSearchContext)
+        })).sort((a, b) => (b.relevanceScore || 0) - (a.relevanceScore || 0));
+      }
     }
     
     this.currentResults = results;
@@ -955,6 +1002,93 @@ body {
     this.fontSizeInput.value = newSize;
     this.currentSize = newSize;
     this.updateAllPreviews();
+  }
+
+  // === INTELLIGENT SEARCH FUNCTIONS ===
+
+  // Score font relevance using intelligent search results
+  scoreIntelligentRelevance(font, intelligentResults) {
+    let score = 0;
+    const fontName = this.normalizeString(font.family);
+    const fontCategory = this.normalizeString(font.category);
+
+    intelligentResults.results.forEach(result => {
+      const conceptScore = result.score || 0;
+      const conceptData = result.data;
+
+      // Direct font name matches from concept
+      if (conceptData.fonts) {
+        conceptData.fonts.forEach(recommendedFont => {
+          const normalizedRecommended = this.normalizeString(recommendedFont);
+          
+          // Exact match
+          if (normalizedRecommended === fontName.replace(/'/g, '')) {
+            score += conceptScore * 2; // Double score for exact matches
+          }
+          // Partial match
+          else if (fontName.includes(normalizedRecommended) || normalizedRecommended.includes(fontName.replace(/'/g, ''))) {
+            score += conceptScore;
+          }
+          // Category match
+          else if (fontCategory.includes(normalizedRecommended)) {
+            score += conceptScore * 0.5;
+          }
+        });
+      }
+
+      // Context-based scoring
+      if (conceptData.contexts) {
+        conceptData.contexts.forEach(context => {
+          if (fontName.includes(this.normalizeString(context))) {
+            score += conceptScore * 0.3;
+          }
+        });
+      }
+
+      // Synonym-based scoring
+      if (conceptData.synonyms) {
+        conceptData.synonyms.forEach(synonym => {
+          if (fontName.includes(this.normalizeString(synonym))) {
+            score += conceptScore * 0.2;
+          }
+        });
+      }
+    });
+
+    return Math.round(score);
+  }
+
+  // Show search interpretation to user
+  showSearchInterpretation(interpretation) {
+    // Remove any existing interpretation
+    const existingInterpretation = document.querySelector('.search-interpretation');
+    if (existingInterpretation) {
+      existingInterpretation.remove();
+    }
+
+    // Create interpretation display
+    const interpretationDiv = document.createElement('div');
+    interpretationDiv.className = 'search-interpretation';
+    interpretationDiv.innerHTML = `
+      <div class="interpretation-content">
+        <span class="interpretation-icon">🧠</span>
+        <span class="interpretation-text">${interpretation}</span>
+        <button class="interpretation-close" onclick="this.parentElement.parentElement.remove()">×</button>
+      </div>
+    `;
+
+    // Insert before results
+    const resultsSection = document.querySelector('.results-section .container');
+    if (resultsSection) {
+      resultsSection.insertBefore(interpretationDiv, resultsSection.firstChild);
+    }
+
+    // Auto-remove after 10 seconds
+    setTimeout(() => {
+      if (interpretationDiv.parentNode) {
+        interpretationDiv.remove();
+      }
+    }, 10000);
   }
 }
 
