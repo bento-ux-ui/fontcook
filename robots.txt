@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://your-domain.github.io/fontcook/sitemap.xml
+
+# Common crawl directives
+Disallow: /scripts/
+Disallow: /styles/
+Allow: /scripts/semantic-dictionary.js
+
+# SEO optimization
+Crawl-delay: 1

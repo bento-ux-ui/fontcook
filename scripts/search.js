@@ -20,7 +20,7 @@ class SearchManager {
     };
     this.currentResults = [];
     this.displayedResults = [];
-    this.resultsPerPage = 8; // Limité à 8 fonts max
+    this.resultsPerPage = 20; // Augmenté pour plus de résultats
     this.currentPage = 1;
     this.currentPreviewText = 'The quick brown fox jumps over the lazy dog';
     this.currentSize = 18;
@@ -265,9 +265,19 @@ class SearchManager {
 
     if (!searchContext) return score;
 
-    // Score basé sur les types de fonts recommandés
+    // Score basé sur les polices directement recommandées dans le dictionnaire
     searchContext.fontTypes.forEach(fontType => {
-      if (fontCategory.includes(fontType) || fontName.includes(fontType)) {
+      // Vérifier si le nom de la police correspond exactement à ceux du dictionnaire
+      if (this.normalizeString(fontType) === fontName.replace(/'/g, '').toLowerCase()) {
+        score += 50; // Score très élevé pour correspondance exacte
+      }
+      // Vérifier si le nom partiel correspond
+      else if (fontName.includes(this.normalizeString(fontType)) || 
+               this.normalizeString(fontType).includes(fontName.replace(/'/g, ''))) {
+        score += 25;
+      }
+      // Score basé sur les catégories génériques
+      else if (fontCategory.includes(fontType)) {
         score += 10;
       }
     });

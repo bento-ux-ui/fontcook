@@ -3,16 +3,91 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FontCook - Cook Your Perfect Typography</title>
-    <meta name="description" content="Discover, explore and cook your favorite fonts with FontCook's intelligent semantic search">
+    
+    <!-- SEO Meta Tags -->
+    <title>FontCook - Intelligent Google Fonts Search & Discovery Tool</title>
+    <meta name="description" content="Find perfect fonts for your projects with FontCook's AI-powered semantic search. Browse 1000+ Google Fonts by style, mood, and business sector. Free font discovery tool.">
+    <meta name="keywords" content="Google Fonts, font search, typography, font finder, web fonts, font discovery, semantic search, design tools, CSS fonts">
+    <meta name="author" content="Benoit Duriez">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://your-domain.github.io/fontcook/">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="FontCook - Intelligent Google Fonts Search">
+    <meta property="og:description" content="Find perfect fonts for your projects with AI-powered semantic search. Browse 1000+ Google Fonts by style and business sector.">
+    <meta property="og:image" content="https://your-domain.github.io/fontcook/assets/og-image.jpg">
+    <meta property="og:url" content="https://your-domain.github.io/fontcook/">
+    <meta property="og:site_name" content="FontCook">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="FontCook - Intelligent Google Fonts Search">
+    <meta name="twitter:description" content="Find perfect fonts for your projects with AI-powered semantic search. Browse 1000+ Google Fonts.">
+    <meta name="twitter:image" content="https://your-domain.github.io/fontcook/assets/og-image.jpg">
+    <meta name="twitter:creator" content="@your-twitter">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+    <link rel="manifest" href="/site.webmanifest">
+    
+    <!-- Theme -->
+    <meta name="theme-color" content="#D69E2E" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#F6D55C" media="(prefers-color-scheme: dark)">
+    
+    <!-- Performance Optimizations -->
+    <link rel="preload" href="styles/main.css" as="style">
     <link rel="stylesheet" href="styles/main.css">
+    
+    <!-- DNS Prefetch -->
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com">
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+    
+    <!-- Critical Google Fonts (reduced to essential) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=Work+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600&family=Work+Sans:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "FontCook",
+      "description": "Intelligent Google Fonts search and discovery tool with AI-powered semantic search",
+      "url": "https://your-domain.github.io/fontcook/",
+      "applicationCategory": "DesignApplication",
+      "operatingSystem": "Web Browser",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "creator": {
+        "@type": "Person",
+        "name": "Benoit Duriez",
+        "url": "https://benoit-duriez.com"
+      },
+      "featureList": [
+        "Semantic font search",
+        "1000+ Google Fonts",
+        "Business sector filtering",
+        "Font weight selection",
+        "CSS code generation",
+        "Real-time preview"
+      ]
+    }
+    </script>
 </head>
 <body>
+    <!-- Skip Navigation for Accessibility -->
+    <a href="#main-content" class="skip-nav" tabindex="1">Skip to main content</a>
+    
     <!-- Header -->
-    <header class="header">
+    <header class="header" role="banner">
         <div class="container">
             <div class="header-content">
                 <div class="logo">
@@ -22,14 +97,17 @@
                 
                 <!-- Search in nav -->
                 <div class="search-bar-nav">
+                    <label for="search-input" class="visually-hidden">Search fonts by style or theme</label>
                     <input 
                         type="text" 
                         id="search-input" 
                         class="search-input-nav" 
                         placeholder="vintage, elegant, script, restaurant, tech..."
                         autocomplete="off"
+                        aria-label="Search fonts by style, theme, or business sector"
+                        role="searchbox"
                     >
-                    <button class="search-btn-nav" id="search-btn">
+                    <button class="search-btn-nav" id="search-btn" type="submit" aria-label="Search fonts">
                         <span class="search-text">let him cook</span>
                     </button>
                 </div>
@@ -44,47 +122,48 @@
     </header>
 
     <!-- Main Content -->
-    <main class="main">
+    <main class="main" id="main-content" role="main">
         <!-- Tags Section -->
-        <section class="tags-section" id="tags">
+        <section class="tags-section" id="tags" aria-labelledby="tags-heading">
             <div class="container">
                 <div class="tags-intro">
+                    <h2 id="tags-heading" class="visually-hidden">Font Style Categories</h2>
                     <p class="tags-description">Find your perfect font in just a few words.</p>
                 </div>
-                <div class="search-tags" id="search-tags">
+                <div class="search-tags" id="search-tags" role="group" aria-label="Popular font categories">
                     <div class="popular-tags">
-                        <button class="tag-btn-large" data-tag="vintage">Vintage</button>
-                        <button class="tag-btn-large" data-tag="elegant">Elegant</button>
-                        <button class="tag-btn-large" data-tag="script">Script</button>
-                        <button class="tag-btn-large" data-tag="restaurant">Restaurant</button>
-                        <button class="tag-btn-large" data-tag="tech">Tech</button>
-                        <button class="tag-btn-large" data-tag="beauty">Beauty</button>
-                        <button class="tag-btn-large" data-tag="sport">Sport</button>
-                        <button class="tag-btn-large" data-tag="luxury">Luxury</button>
-                        <button class="tag-btn-large" data-tag="kids">Kids</button>
-                        <button class="tag-btn-large" data-tag="automotive">Auto</button>
+                        <button class="tag-btn-large" data-tag="vintage" aria-label="Search for vintage style fonts">Vintage</button>
+                        <button class="tag-btn-large" data-tag="elegant" aria-label="Search for elegant style fonts">Elegant</button>
+                        <button class="tag-btn-large" data-tag="script" aria-label="Search for script style fonts">Script</button>
+                        <button class="tag-btn-large" data-tag="restaurant" aria-label="Search for restaurant themed fonts">Restaurant</button>
+                        <button class="tag-btn-large" data-tag="tech" aria-label="Search for technology themed fonts">Tech</button>
+                        <button class="tag-btn-large" data-tag="beauty" aria-label="Search for beauty themed fonts">Beauty</button>
+                        <button class="tag-btn-large" data-tag="sport" aria-label="Search for sport themed fonts">Sport</button>
+                        <button class="tag-btn-large" data-tag="luxury" aria-label="Search for luxury themed fonts">Luxury</button>
+                        <button class="tag-btn-large" data-tag="kids" aria-label="Search for kid-friendly fonts">Kids</button>
+                        <button class="tag-btn-large" data-tag="automotive" aria-label="Search for automotive themed fonts">Auto</button>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- Results Section -->
-        <section class="results-section" id="results">
+        <section class="results-section" id="results" aria-labelledby="results-heading">
             <div class="container">
                 <div class="results-header">
-                    <h2 class="section-title">Search Results</h2>
-                    <div class="results-count" id="results-count">
+                    <h2 class="section-title" id="results-heading">Search Results</h2>
+                    <div class="results-count" id="results-count" aria-live="polite" aria-atomic="true">
                         <span class="cooking-loader hidden" id="cooking-loader">🍳 Cooking fonts...</span>
                     </div>
                 </div>
                 
-                <div class="font-grid" id="font-grid">
-                    <!-- Les polices seront ajoutées dynamiquement -->
+                <div class="font-grid" id="font-grid" role="grid" aria-label="Font search results">
+                    <!-- Font cards will be added dynamically -->
                 </div>
                 
                 <div class="load-more-container">
-                    <button class="btn btn-secondary cook-more-btn" id="load-more" style="display: none;">
-                        <span class="cook-icon">🍳</span>
+                    <button class="btn btn-secondary cook-more-btn" id="load-more" style="display: none;" aria-label="Load more font results">
+                        <span class="cook-icon" aria-hidden="true">🍳</span>
                         <span class="cook-text">Cook me more</span>
                     </button>
                 </div>
@@ -93,13 +172,14 @@
     </main>
 
     <!-- Preview Controls - Fixed at bottom -->
-    <div class="preview-controls-fixed" id="preview-controls">
+    <aside class="preview-controls-fixed" id="preview-controls" role="complementary" aria-label="Font preview controls">
         <div class="preview-controls-inner">
-            <button class="preview-toggle-btn" id="preview-toggle" aria-label="Minimize/Expand controls">
-                <span class="toggle-icon">−</span>
+            <button class="preview-toggle-btn" id="preview-toggle" aria-label="Minimize/Expand preview controls" aria-expanded="true" aria-controls="preview-content">
+                <span class="toggle-icon" aria-hidden="true">−</span>
             </button>
             
-            <div class="preview-controls-content" id="preview-content">
+            <div class="preview-controls-content" id="preview-content" aria-labelledby="preview-controls-heading">
+                <h3 id="preview-controls-heading" class="visually-hidden">Font Preview Settings</h3>
                 <div class="preview-text-control">
                     <label for="preview-text">Preview text:</label>
                     <input 
@@ -108,7 +188,9 @@
                         class="preview-text-input"
                         placeholder="Type your text..."
                         value="The quick brown fox jumps over the lazy dog"
+                        aria-describedby="preview-text-help"
                     >
+                    <span id="preview-text-help" class="visually-hidden">Enter custom text to preview with selected fonts</span>
                 </div>
                 
                 <div class="size-control-manual">
@@ -122,16 +204,18 @@
                             min="8"
                             max="72"
                             step="1"
+                            aria-describedby="font-size-help"
                         >
+                        <span id="font-size-help" class="visually-hidden">Font size between 8 and 72 pixels</span>
                         <div class="font-size-arrows">
-                            <button class="size-arrow size-up" type="button">▲</button>
-                            <button class="size-arrow size-down" type="button">▼</button>
+                            <button class="size-arrow size-up" type="button" aria-label="Increase font size">▲</button>
+                            <button class="size-arrow size-down" type="button" aria-label="Decrease font size">▼</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </aside>
 
     <!-- Footer -->
     <footer class="footer">
@@ -147,12 +231,42 @@
         </div>
     </footer>
 
-    <!-- Scripts -->
-    <script src="scripts/semantic-dictionary.js"></script>
-    <script src="scripts/theme.js"></script>
-    <script src="scripts/api.js"></script>
-    <script src="scripts/tags.js"></script>
-    <script src="scripts/search.js"></script>
-    <script src="scripts/app.js"></script>
+    <!-- Scripts - Optimized loading -->
+    <script src="scripts/semantic-dictionary.js" defer></script>
+    <script src="scripts/theme.js" defer></script>
+    <script src="scripts/api.js" defer></script>
+    <script src="scripts/tags.js" defer></script>
+    <script src="scripts/search.js" defer></script>
+    <script src="scripts/app.js" defer></script>
+    
+    <!-- Performance Monitoring -->
+    <script defer>
+      // Measure Core Web Vitals
+      function measureWebVitals() {
+        if ('web-vital' in window) {
+          webVitals.onCLS(console.log);
+          webVitals.onFID(console.log);
+          webVitals.onLCP(console.log);
+        }
+      }
+      
+      // Lazy load non-critical resources
+      if ('IntersectionObserver' in window) {
+        const lazyElements = document.querySelectorAll('[data-lazy]');
+        const observer = new IntersectionObserver((entries) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              const element = entry.target;
+              if (element.dataset.src) {
+                element.src = element.dataset.src;
+                element.removeAttribute('data-lazy');
+                observer.unobserve(element);
+              }
+            }
+          });
+        });
+        lazyElements.forEach(el => observer.observe(el));
+      }
+    </script>
 </body>
 </html>

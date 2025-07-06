@@ -166,13 +166,24 @@ class FontAPI {
 
   initializeFallbackFonts() {
     this.fallbackFonts = [
+      // Modern & Tech
+      {
+        family: 'Inter',
+        category: 'sans-serif',
+        variants: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
+        subsets: ['latin'],
+        popularity: 97,
+        description: 'A clean, modern sans-serif perfect for tech and startups',
+        tags: ['modern', 'tech', 'clean', 'startup', 'digital']
+      },
       {
         family: 'Sora',
         category: 'sans-serif',
         variants: ['300', '400', '500', '600', '700'],
         subsets: ['latin'],
-        popularity: 97,
-        description: 'A clean, modern sans-serif perfect for headings'
+        popularity: 95,
+        description: 'A clean, modern sans-serif perfect for headings',
+        tags: ['modern', 'tech', 'clean', 'startup', 'digital']
       },
       {
         family: 'Work Sans',
@@ -180,7 +191,8 @@ class FontAPI {
         variants: ['300', '400', '500', '600', '700'],
         subsets: ['latin'],
         popularity: 95,
-        description: 'A versatile, highly legible sans-serif typeface'
+        description: 'A versatile, highly legible sans-serif typeface',
+        tags: ['corporate', 'professional', 'clean', 'business']
       },
       {
         family: 'Roboto',
@@ -188,7 +200,8 @@ class FontAPI {
         variants: ['100', '300', '400', '500', '700', '900'],
         subsets: ['latin'],
         popularity: 92,
-        description: 'Google\'s signature family of fonts'
+        description: 'Google\'s signature family of fonts',
+        tags: ['modern', 'tech', 'digital', 'google', 'android']
       },
       {
         family: 'Open Sans',
@@ -196,7 +209,8 @@ class FontAPI {
         variants: ['300', '400', '600', '700', '800'],
         subsets: ['latin'],
         popularity: 88,
-        description: 'A humanist sans-serif typeface'
+        description: 'A humanist sans-serif typeface',
+        tags: ['readable', 'friendly', 'web', 'universal']
       },
       {
         family: 'Lato',
@@ -204,7 +218,8 @@ class FontAPI {
         variants: ['100', '300', '400', '700', '900'],
         subsets: ['latin'],
         popularity: 85,
-        description: 'A humanist typeface family'
+        description: 'A humanist typeface family',
+        tags: ['elegant', 'sophisticated', 'beauty', 'cosmetic']
       },
       {
         family: 'Montserrat',
@@ -212,7 +227,8 @@ class FontAPI {
         variants: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
         subsets: ['latin'],
         popularity: 82,
-        description: 'Inspired by urban typography from Montserrat'
+        description: 'Inspired by urban typography from Montserrat',
+        tags: ['urban', 'geometric', 'fashion', 'luxury', 'brand']
       },
       {
         family: 'Playfair Display',
@@ -220,7 +236,129 @@ class FontAPI {
         variants: ['400', '500', '600', '700', '800', '900'],
         subsets: ['latin'],
         popularity: 75,
-        description: 'A transitional design with high contrast'
+        description: 'A transitional design with high contrast',
+        tags: ['elegant', 'luxury', 'fashion', 'restaurant', 'sophisticated']
+      },
+      // Additional fonts for variety - Inter already exists above
+      {
+        family: 'Poppins',
+        category: 'sans-serif',
+        variants: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
+        subsets: ['latin'],
+        popularity: 87,
+        description: 'A geometric sans-serif with rounded edges',
+        tags: ['friendly', 'modern', 'kids', 'playful', 'geometric']
+      },
+      {
+        family: 'Merriweather',
+        category: 'serif',
+        variants: ['300', '400', '700', '900'],
+        subsets: ['latin'],
+        popularity: 78,
+        description: 'Designed to be readable on screens',
+        tags: ['traditional', 'readable', 'book', 'editorial', 'classic']
+      },
+      {
+        family: 'Oswald',
+        category: 'sans-serif',
+        variants: ['200', '300', '400', '500', '600', '700'],
+        subsets: ['latin'],
+        popularity: 80,
+        description: 'A reworking of the classic style historically',
+        tags: ['bold', 'strong', 'automotive', 'industrial', 'sport']
+      },
+      {
+        family: 'Source Sans Pro',
+        category: 'sans-serif',
+        variants: ['200', '300', '400', '600', '700', '900'],
+        subsets: ['latin'],
+        popularity: 83,
+        description: 'Adobe\'s first open source typeface family',
+        tags: ['professional', 'corporate', 'clean', 'adobe']
+      },
+      // Restaurant & Elegant fonts
+      {
+        family: 'Lora',
+        category: 'serif',
+        variants: ['400', '500', '600', '700'],
+        subsets: ['latin'],
+        popularity: 85,
+        description: 'A well-balanced contemporary serif with roots in calligraphy',
+        tags: ['elegant', 'restaurant', 'serif', 'readable', 'sophisticated']
+      },
+      {
+        family: 'Crimson Text',
+        category: 'serif',
+        variants: ['400', '600', '700'],
+        subsets: ['latin'],
+        popularity: 75,
+        description: 'A serif font family inspired by old-style serif fonts',
+        tags: ['restaurant', 'elegant', 'classic', 'traditional', 'readable']
+      },
+      {
+        family: 'Cormorant Garamond',
+        category: 'serif',
+        variants: ['300', '400', '500', '600', '700'],
+        subsets: ['latin'],
+        popularity: 70,
+        description: 'An elegant serif typeface with classical proportions',
+        tags: ['elegant', 'luxury', 'fashion', 'sophisticated', 'classical']
+      },
+      // Beauty & Script fonts
+      {
+        family: 'Dancing Script',
+        category: 'handwriting',
+        variants: ['400', '500', '600', '700'],
+        subsets: ['latin'],
+        popularity: 80,
+        description: 'A lively casual script with bouncing letters and size changes',
+        tags: ['beauty', 'script', 'elegant', 'feminine', 'wedding']
+      },
+      // Additional variety fonts
+      {
+        family: 'Nunito',
+        category: 'sans-serif',
+        variants: ['200', '300', '400', '500', '600', '700', '800', '900'],
+        subsets: ['latin'],
+        popularity: 85,
+        description: 'A well balanced sans serif typeface superfamily',
+        tags: ['friendly', 'modern', 'rounded', 'readable', 'versatile']
+      },
+      {
+        family: 'Libre Baskerville',
+        category: 'serif',
+        variants: ['400', '700'],
+        subsets: ['latin'],
+        popularity: 78,
+        description: 'A web font optimized for body text',
+        tags: ['elegant', 'readable', 'traditional', 'book', 'academic']
+      },
+      {
+        family: 'Raleway',
+        category: 'sans-serif',
+        variants: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
+        subsets: ['latin'],
+        popularity: 82,
+        description: 'An elegant sans-serif typeface family',
+        tags: ['elegant', 'thin', 'fashion', 'modern', 'sophisticated']
+      },
+      {
+        family: 'Ubuntu',
+        category: 'sans-serif',
+        variants: ['300', '400', '500', '700'],
+        subsets: ['latin'],
+        popularity: 77,
+        description: 'A unique, custom designed typeface',
+        tags: ['modern', 'tech', 'friendly', 'open-source', 'clean']
+      },
+      {
+        family: 'Fira Sans',
+        category: 'sans-serif',
+        variants: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
+        subsets: ['latin'],
+        popularity: 74,
+        description: 'Mozilla\'s typeface for Firefox OS',
+        tags: ['tech', 'modern', 'clean', 'readable', 'mozilla']
       }
     ];
   }
@@ -228,18 +366,27 @@ class FontAPI {
   // Load Google Fonts dynamically
   loadGoogleFonts() {
     const fontsToLoad = [
+      'Inter:wght@100;200;300;400;500;600;700;800;900',
       'Sora:wght@300;400;500;600;700',
       'Work+Sans:wght@300;400;500;600;700',
-      'Fira+Code:wght@300;400;500',
-      'Roboto:wght@300;400;500;700',
-      'Open+Sans:wght@300;400;600;700',
-      'Lato:wght@300;400;700',
-      'Montserrat:wght@300;400;500;600;700',
-      'Merriweather:wght@300;400;700',
-      'Poppins:wght@300;400;500;600;700',
-      'Nunito:wght@300;400;600;700',
-      'Source+Sans+Pro:wght@300;400;600;700',
-      'Raleway:wght@300;400;500;600;700'
+      'Roboto:wght@100;300;400;500;700;900',
+      'Open+Sans:wght@300;400;600;700;800',
+      'Lato:wght@100;300;400;700;900',
+      'Montserrat:wght@100;200;300;400;500;600;700;800;900',
+      'Playfair+Display:wght@400;500;600;700;800;900',
+      'Poppins:wght@100;200;300;400;500;600;700;800;900',
+      'Merriweather:wght@300;400;700;900',
+      'Oswald:wght@200;300;400;500;600;700',
+      'Source+Sans+Pro:wght@200;300;400;600;700;900',
+      'Lora:wght@400;500;600;700',
+      'Crimson+Text:wght@400;600;700',
+      'Cormorant+Garamond:wght@300;400;500;600;700',
+      'Dancing+Script:wght@400;500;600;700',
+      'Nunito:wght@200;300;400;500;600;700;800;900',
+      'Libre+Baskerville:wght@400;700',
+      'Raleway:wght@100;200;300;400;500;600;700;800;900',
+      'Ubuntu:wght@300;400;500;700',
+      'Fira+Sans:wght@100;200;300;400;500;600;700;800;900'
     ];
 
     const link = document.createElement('link');
@@ -298,7 +445,7 @@ class FontAPI {
     console.log('🍳 FontCook: Current hostname:', window.location.hostname);
     console.log('🍳 FontCook: Using fallback fonts for now');
     
-    if (isLocal || true) { // Temporarily force fallback
+    if (isLocal) { // Only use fallback in local environment
       console.log('🍳 FontCook: Local environment detected, using fallback fonts');
       console.log('🍳 FontCook: Available fallback fonts:', this.fallbackFonts);
       
@@ -384,7 +531,7 @@ class FontAPI {
                    window.location.hostname === '127.0.0.1' ||
                    window.location.hostname === '';
     
-    if (isLocal || true) { // Temporarily force fallback for online too
+    if (isLocal) { // Only use fallback in local environment
       console.log('🍳 FontCook: Using fallback fonts for search');
       
       if (!this.fallbackFonts || this.fallbackFonts.length === 0) {
@@ -398,11 +545,24 @@ class FontAPI {
         const normalizedQuery = normalizeText(query);
         const normalizedFamily = normalizeText(font.family);
         const normalizedCategory = normalizeText(font.category);
+        const normalizedDescription = normalizeText(font.description || '');
+        
+        // Recherche dans les tags
+        const matchesTags = font.tags && font.tags.some(tag => 
+          normalizeText(tag).includes(normalizedQuery) || 
+          normalizedQuery.includes(normalizeText(tag))
+        );
         
         const matchesQuery = normalizedFamily.includes(normalizedQuery) ||
                             normalizedCategory.includes(normalizedQuery) ||
+                            normalizedDescription.includes(normalizedQuery) ||
+                            matchesTags ||
                             normalizedQuery.split(' ').some(term => 
-                              normalizedFamily.includes(term) || normalizedCategory.includes(term));
+                              normalizedFamily.includes(term) || 
+                              normalizedCategory.includes(term) ||
+                              normalizedDescription.includes(term) ||
+                              (font.tags && font.tags.some(tag => normalizeText(tag).includes(term)))
+                            );
         
         const matchesCategory = !filters.category || 
                               font.category.toLowerCase() === filters.category.toLowerCase();
