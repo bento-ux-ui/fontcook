@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="fr" data-theme="light">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FontCook - Mijoter vos typographies</title>
-    <meta name="description" content="Découvrez, explorez et cuisinez vos polices préférées avec FontCook">
+    <title>FontCook - Cook Your Perfect Typography</title>
+    <meta name="description" content="Discover, explore and cook your favorite fonts with FontCook's intelligent semantic search">
     <link rel="stylesheet" href="styles/main.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -26,16 +26,16 @@
                         type="text" 
                         id="search-input" 
                         class="search-input-nav" 
-                        placeholder="vintage, elegant, script..."
+                        placeholder="vintage, elegant, script, restaurant, tech..."
                         autocomplete="off"
                     >
                     <button class="search-btn-nav" id="search-btn">
-                        <span class="search-text">Rechercher</span>
+                        <span class="search-text">let him cook</span>
                     </button>
                 </div>
                 
                 <div class="header-actions">
-                    <button class="theme-toggle" id="theme-toggle" aria-label="Changer de thème">
+                    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle theme">
                         <span class="theme-icon">🌙</span>
                     </button>
                 </div>
@@ -49,20 +49,20 @@
         <section class="tags-section" id="tags">
             <div class="container">
                 <div class="tags-intro">
-                    <p class="tags-description">Trouvez votre font parfaite en quelques mots.</p>
+                    <p class="tags-description">Find your perfect font in just a few words.</p>
                 </div>
                 <div class="search-tags" id="search-tags">
                     <div class="popular-tags">
                         <button class="tag-btn-large" data-tag="vintage">Vintage</button>
                         <button class="tag-btn-large" data-tag="elegant">Elegant</button>
                         <button class="tag-btn-large" data-tag="script">Script</button>
-                        <button class="tag-btn-large" data-tag="cuisine">Restaurant</button>
+                        <button class="tag-btn-large" data-tag="restaurant">Restaurant</button>
                         <button class="tag-btn-large" data-tag="tech">Tech</button>
-                        <button class="tag-btn-large" data-tag="cosmetique">Beauté</button>
+                        <button class="tag-btn-large" data-tag="beauty">Beauty</button>
                         <button class="tag-btn-large" data-tag="sport">Sport</button>
-                        <button class="tag-btn-large" data-tag="luxe">Luxe</button>
-                        <button class="tag-btn-large" data-tag="enfant">Enfant</button>
-                        <button class="tag-btn-large" data-tag="automobile">Auto</button>
+                        <button class="tag-btn-large" data-tag="luxury">Luxury</button>
+                        <button class="tag-btn-large" data-tag="kids">Kids</button>
+                        <button class="tag-btn-large" data-tag="automotive">Auto</button>
                     </div>
                 </div>
             </div>
@@ -72,9 +72,9 @@
         <section class="results-section" id="results">
             <div class="container">
                 <div class="results-header">
-                    <h2 class="section-title">Résultats de la recherche</h2>
+                    <h2 class="section-title">Search Results</h2>
                     <div class="results-count" id="results-count">
-                        <span class="cooking-loader hidden" id="cooking-loader">🍳 Cuisson en cours...</span>
+                        <span class="cooking-loader hidden" id="cooking-loader">🍳 Cooking fonts...</span>
                     </div>
                 </div>
                 
@@ -95,24 +95,24 @@
     <!-- Preview Controls - Fixed at bottom -->
     <div class="preview-controls-fixed" id="preview-controls">
         <div class="preview-controls-inner">
-            <button class="preview-toggle-btn" id="preview-toggle" aria-label="Minimiser/Agrandir les contrôles">
+            <button class="preview-toggle-btn" id="preview-toggle" aria-label="Minimize/Expand controls">
                 <span class="toggle-icon">−</span>
             </button>
             
             <div class="preview-controls-content" id="preview-content">
                 <div class="preview-text-control">
-                    <label for="preview-text">Texte d'aperçu :</label>
+                    <label for="preview-text">Preview text:</label>
                     <input 
                         type="text" 
                         id="preview-text" 
                         class="preview-text-input"
-                        placeholder="Tapez votre texte..."
+                        placeholder="Type your text..."
                         value="The quick brown fox jumps over the lazy dog"
                     >
                 </div>
                 
                 <div class="size-control-manual">
-                    <label for="font-size-input">Taille (px) :</label>
+                    <label for="font-size-input">Size (px):</label>
                     <div class="font-size-wrapper">
                         <input 
                             type="number" 
@@ -138,20 +138,21 @@
         <div class="container">
             <div class="footer-content">
                 <p class="footer-text">
-                    &copy; 2024 FontCook. Explorez, prévisualisez et intégrez facilement les meilleures Google Fonts.
+                    &copy; 2024 FontCook. Explore, preview and easily integrate the best Google Fonts.
                 </p>
                 <p class="footer-credit">
-                    Créé par <a href="https://benoit-duriez.com" target="_blank" rel="noopener noreferrer" class="footer-link">Benoit Duriez</a>
+                    Created by <a href="https://benoit-duriez.com" target="_blank" rel="noopener noreferrer" class="footer-link">Benoit Duriez</a>
                 </p>
             </div>
         </div>
     </footer>
 
     <!-- Scripts -->
+    <script src="scripts/semantic-dictionary.js"></script>
     <script src="scripts/theme.js"></script>
+    <script src="scripts/api.js"></script>
     <script src="scripts/tags.js"></script>
     <script src="scripts/search.js"></script>
-    <script src="scripts/api.js"></script>
     <script src="scripts/app.js"></script>
 </body>
 </html>

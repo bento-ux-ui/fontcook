@@ -4,7 +4,7 @@ class FontAPI {
   constructor() {
     this.baseURL = 'https://fonts.googleapis.com/css2';
     this.apiURL = 'https://www.googleapis.com/webfonts/v1/webfonts';
-    this.apiKey = 'AIzaSyBgBpnNLb7yRw0A1Xgs7EmFntIJQ4Bqe7A';
+    this.apiKey = 'AIzaSyCKNkX5hO0cOGJZ8VfSmdWtRGMVZIX7TWI';
     this.cache = new Map();
     this.cacheExpiry = 24 * 60 * 60 * 1000; // 24 heures
     this.localStorageKey = 'fontcook-cache';
@@ -298,7 +298,7 @@ class FontAPI {
         });
         
         if (apiData && apiData.items) {
-          const popularFonts = apiData.items.slice(0, 12).map(font => ({
+          const popularFonts = apiData.items.slice(0, 20).map(font => ({
             name: font.family,
             family: `'${font.family}', ${font.category}`,
             category: font.category,
@@ -375,8 +375,8 @@ class FontAPI {
             return matchesQuery && matchesCategory && matchesWeight;
           });
 
-          // Transformer en format FontCook
-          results = results.slice(0, 50).map(font => ({
+          // Transformer en format FontCook (toutes les fonts trouvées)
+          results = results.map(font => ({
             name: font.family,
             family: `'${font.family}', ${font.category}`,
             category: font.category,
@@ -467,7 +467,7 @@ class FontAPI {
         <div class="quota-info">
           <span class="quota-icon">🍳</span>
           <div class="quota-text">
-            <span class="quota-label">Recherches quotidiennes</span>
+            <span class="quota-label">Daily searches</span>
             <div class="quota-progress">
               <div class="quota-bar">
                 <div class="quota-fill" style="width: ${percentage}%"></div>
@@ -528,41 +528,33 @@ class FontAPI {
     const modal = document.createElement('div');
     modal.className = 'coffee-modal';
     modal.innerHTML = `
-      <div class="modal-content coffee-content">
+      <div class="coffee-content">
         <div class="modal-header">
           <h3>☕ Support FontCook</h3>
           <button class="modal-close" onclick="this.closest('.coffee-modal').remove()">&times;</button>
         </div>
-        <div class="modal-body">
-          <div class="coffee-hero">
-            <div class="chef-emoji">👨‍🍳</div>
-            <h4>Aidez le chef à continuer de cuisiner !</h4>
-            <p>FontCook utilise l'API Google Fonts qui a des limites quotidiennes. 
-               Votre soutien m'aide à maintenir ce service gratuit et à explorer plus de polices chaque jour.</p>
-          </div>
-          
-          <div class="coffee-benefits">
-            <h5>Avec votre café ☕</h5>
-            <ul>
-              <li>🔥 Plus de recherches quotidiennes</li>
-              <li>⚡ Accès prioritaire aux nouvelles polices</li>
-              <li>🎨 Fonctionnalités avancées en avant-première</li>
-              <li>❤️ Support d'un développeur indépendant</li>
-            </ul>
-          </div>
-          
-          <div class="coffee-actions">
-            <a href="https://buymeacoffee.com/fontcook" target="_blank" class="btn btn-coffee-main">
-              ☕ Offrir un café (5€)
-            </a>
-            <a href="https://ko-fi.com/fontcook" target="_blank" class="btn btn-coffee-alt">
-              🫖 Support mensuel
-            </a>
-          </div>
-          
-          <div class="coffee-thanks">
-            <small>Merci pour votre soutien ! 🙏</small>
-          </div>
+        <div class="coffee-hero">
+          <div class="chef-emoji">👨‍🍳</div>
+        </div>
+        
+        <div class="coffee-benefits">
+          <h5>Found it useful? ☕</h5>
+          <p style="text-align: center; color: var(--text-muted); margin: var(--space-lg) 0;">
+            If you'd like to buy me a coffee, that would be amazing!
+          </p>
+        </div>
+        
+        <div class="coffee-actions">
+          <a href="#" class="btn btn-coffee-disabled">
+            ☕ Buy me a coffee (Coming soon)
+          </a>
+          <button class="btn btn-coffee-alt" onclick="this.closest('.coffee-modal').remove()">
+            Close
+          </button>
+        </div>
+        
+        <div class="coffee-thanks">
+          <small>Thank you for your interest! 🙏</small>
         </div>
       </div>
     `;

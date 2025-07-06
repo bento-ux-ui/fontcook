@@ -26,9 +26,116 @@ class SearchManager {
     this.currentSize = 18;
     
     // Use the massive semantic dictionary
-    // Use the massive semantic dictionary (969 words\!)
-    this.semanticDictionary = typeof SEMANTIC_DICTIONARY \!== 'undefined' ? SEMANTIC_DICTIONARY : {};
+    this.semanticDictionary = typeof SEMANTIC_DICTIONARY !== 'undefined' ? SEMANTIC_DICTIONARY : {
+      // === STYLES VISUELS ===
+      'vintage': {
+        synonyms: ['vintage', 'retro', 'old', 'classic', 'antique', 'ancient', 'nostalgic', 'aged', 'historic'],
+        contexts: ['decoration', 'restaurant', 'bar', 'boutique', 'artisanat'],
+        fonts: ['serif', 'slab', 'decorative']
+      },
+      'elegant': {
+        synonyms: ['elegant', 'sophisticated', 'refined', 'classy', 'graceful', 'chic', 'luxe', 'premium', 'noble'],
+        contexts: ['mode', 'beaute', 'mariage', 'hotel', 'bijouterie', 'parfum'],
+        fonts: ['serif', 'script', 'thin']
+      },
+      'modern': {
+        synonyms: ['modern', 'contemporary', 'clean', 'minimal', 'simple', 'fresh', 'actuel', 'tendance'],
+        contexts: ['tech', 'startup', 'design', 'architecture', 'digital'],
+        fonts: ['sans-serif', 'geometric', 'minimal']
+      },
+      'playful': {
+        synonyms: ['playful', 'fun', 'cheerful', 'happy', 'joyful', 'coloré', 'amusant', 'dynamique'],
+        contexts: ['enfant', 'jeu', 'animation', 'evenement', 'fete'],
+        fonts: ['display', 'rounded', 'decorative']
+      },
 
+      // === DOMAINES D'ACTIVITÉ ===
+      'cosmetique': {
+        synonyms: ['cosmétique', 'beauté', 'maquillage', 'skincare', 'parfum', 'spa', 'wellness', 'soin'],
+        contexts: ['elegant', 'feminin', 'doux', 'premium'],
+        fonts: ['script', 'serif', 'thin', 'elegant']
+      },
+      'cuisine': {
+        synonyms: ['cuisine', 'restaurant', 'food', 'gastronomie', 'chef', 'bistrot', 'brasserie', 'cafe'],
+        contexts: ['vintage', 'artisanal', 'chaleureux', 'gourmand'],
+        fonts: ['serif', 'slab', 'script', 'handwritten']
+      },
+      'automobile': {
+        synonyms: ['automobile', 'voiture', 'garage', 'mécanique', 'motor', 'auto', 'véhicule', 'conduite'],
+        contexts: ['masculin', 'technique', 'puissant', 'vitesse'],
+        fonts: ['sans-serif', 'bold', 'industrial', 'strong']
+      },
+      'tech': {
+        synonyms: ['technologie', 'digital', 'software', 'app', 'web', 'startup', 'innovation', 'code'],
+        contexts: ['modern', 'clean', 'professionnel', 'futuriste'],
+        fonts: ['sans-serif', 'monospace', 'geometric', 'minimal']
+      },
+      'mode': {
+        synonyms: ['mode', 'fashion', 'vêtement', 'style', 'tendance', 'couture', 'prêt-à-porter'],
+        contexts: ['elegant', 'chic', 'moderne', 'artistique'],
+        fonts: ['serif', 'script', 'display', 'fashion']
+      },
+      'sport': {
+        synonyms: ['sport', 'fitness', 'gym', 'athlétique', 'performance', 'training', 'workout'],
+        contexts: ['dynamique', 'energie', 'mouvement', 'puissant'],
+        fonts: ['sans-serif', 'bold', 'impact', 'strong']
+      },
+      'enfant': {
+        synonyms: ['enfant', 'kids', 'bébé', 'jouet', 'école', 'éducation', 'famille', 'junior'],
+        contexts: ['playful', 'coloré', 'doux', 'amusant'],
+        fonts: ['rounded', 'playful', 'comic', 'friendly']
+      },
+      'medical': {
+        synonyms: ['médical', 'santé', 'hôpital', 'docteur', 'clinique', 'pharmacie', 'soin', 'thérapie'],
+        contexts: ['professionnel', 'serieux', 'confiance', 'clean'],
+        fonts: ['sans-serif', 'clean', 'readable', 'professional']
+      },
+      'finance': {
+        synonyms: ['finance', 'banque', 'assurance', 'investissement', 'conseil', 'comptable', 'audit'],
+        contexts: ['serieux', 'professionnel', 'confiance', 'stable'],
+        fonts: ['serif', 'classic', 'professional', 'trustworthy']
+      },
+      'art': {
+        synonyms: ['art', 'artistique', 'créatif', 'galerie', 'peinture', 'sculpture', 'design', 'culture'],
+        contexts: ['créatif', 'unique', 'expressif', 'avant-garde'],
+        fonts: ['display', 'artistic', 'unique', 'creative']
+      },
+
+      // === CARACTÉRISTIQUES TYPOGRAPHIQUES ===
+      'bold': {
+        synonyms: ['bold', 'strong', 'heavy', 'thick', 'fat', 'gras', 'épais', 'puissant'],
+        contexts: ['impact', 'titre', 'masculine', 'force'],
+        fonts: ['bold', 'black', 'heavy', 'strong']
+      },
+      'light': {
+        synonyms: ['light', 'thin', 'slim', 'delicate', 'fine', 'léger', 'délicat'],
+        contexts: ['elegant', 'feminin', 'subtil', 'raffiné'],
+        fonts: ['thin', 'light', 'ultralight', 'delicate']
+      },
+      'script': {
+        synonyms: ['script', 'handwriting', 'cursive', 'calligraphy', 'handwritten', 'manuscrit', 'écrit'],
+        contexts: ['personnel', 'invitation', 'signature', 'artisanal'],
+        fonts: ['script', 'cursive', 'handwritten', 'calligraphy']
+      },
+
+      // === AMBIANCES & ÉMOTIONS ===
+      'luxe': {
+        synonyms: ['luxe', 'premium', 'haut-de-gamme', 'prestige', 'exclusif', 'raffiné'],
+        contexts: ['elegant', 'cher', 'qualite', 'elite'],
+        fonts: ['serif', 'elegant', 'classic', 'premium']
+      },
+      'naturel': {
+        synonyms: ['naturel', 'bio', 'écologique', 'vert', 'organic', 'nature', 'environnement'],
+        contexts: ['authentique', 'sain', 'responsable', 'terre'],
+        fonts: ['organic', 'handwritten', 'natural', 'earthy']
+      },
+      'industriel': {
+        synonyms: ['industriel', 'factory', 'manufacture', 'métal', 'béton', 'urbain', 'brut'],
+        contexts: ['masculin', 'robuste', 'technique', 'urban'],
+        fonts: ['industrial', 'stencil', 'mechanical', 'bold']
+      }
+    };
+    
     this.init();
   }
 
@@ -321,7 +428,7 @@ class SearchManager {
       this.displayResults(results);
     } catch (error) {
       console.error('Search error:', error);
-      this.showError('Error during search. Please try again.');
+      this.showError('Erreur lors de la recherche. Veuillez réessayer.');
     } finally {
       this.hideLoader();
     }
@@ -408,24 +515,6 @@ class SearchManager {
     const previewText = this.currentPreviewText;
     const fontSize = this.currentSize;
     
-    // Get available font weights (default common weights if not specified)
-    const availableWeights = font.variants || ['400'];
-    const numericWeights = availableWeights
-      .filter(weight => /^\d+$/.test(weight))
-      .map(w => parseInt(w))
-      .sort((a, b) => a - b);
-    
-    // Create weight selector buttons
-    const weightButtons = numericWeights.map(weight => {
-      const weightName = this.getWeightName(weight);
-      return `
-        <button class="weight-btn" data-weight="${weight}" data-font="${font.family.replace(/'/g, '&quot;')}" onclick="fontSearch.toggleWeight(this)">
-          <span class="weight-number">${weight}</span>
-          <span class="weight-name">${weightName}</span>
-        </button>
-      `;
-    }).join('');
-    
     card.innerHTML = `
       <div class="font-preview-multi" style="font-family: ${font.family}">
         <div class="font-preview-size" style="font-size: ${fontSize}px;">
@@ -440,49 +529,17 @@ class SearchManager {
         </div>
       </div>
       
-      <div class="font-weights">
-        <div class="weights-label">Available weights:</div>
-        <div class="weights-selector">
-          ${weightButtons}
-        </div>
-      </div>
-      
       <div class="font-actions-enhanced">
-        <button class="font-action-btn-enhanced copy-css-btn" onclick="fontSearch.copyFontCodeWithWeights('${font.family}', '${font.name}')">
-          📋 Copy CSS
+        <button class="font-action-btn-enhanced preview-btn" onclick="fontSearch.previewFont('${font.family}', '${font.name}')">
+          👁 Aperçu
+        </button>
+        <button class="font-action-btn-enhanced copy-css-btn" onclick="fontSearch.copyFontCode('${font.family}', '${font.name}')">
+          {} CSS
         </button>
       </div>
     `;
     
     return card;
-  }
-
-  getWeightName(weight) {
-    const weightNames = {
-      100: 'Thin',
-      200: 'Extra Light',
-      300: 'Light',
-      400: 'Regular',
-      500: 'Medium',
-      600: 'Semi Bold',
-      700: 'Bold',
-      800: 'Extra Bold',
-      900: 'Black'
-    };
-    return weightNames[weight] || 'Unknown';
-  }
-
-  toggleWeight(button) {
-    button.classList.toggle('selected');
-    
-    // Update visual feedback
-    if (button.classList.contains('selected')) {
-      button.style.background = 'var(--accent)';
-      button.style.color = 'var(--text)';
-    } else {
-      button.style.background = '';
-      button.style.color = '';
-    }
   }
 
   loadMoreResults() {
@@ -513,8 +570,8 @@ class SearchManager {
       if (title) {
         this.resultsCount.textContent = title;
       } else {
-        const scoreInfo = this.lastSearchContext ? ' (sorted by relevance)' : '';
-        this.resultsCount.textContent = `${count} font${count > 1 ? 's' : ''} found${scoreInfo}`;
+        const scoreInfo = this.lastSearchContext ? ' (triées par pertinence)' : '';
+        this.resultsCount.textContent = `${count} police${count > 1 ? 's' : ''} trouvée${count > 1 ? 's' : ''}${scoreInfo}`;
       }
     }
   }
@@ -544,8 +601,8 @@ class SearchManager {
   showNoResults() {
     const emptyState = window.fontAPI ? window.fontAPI.getEmptyStateMessage('search') : {
       icon: '🍽️',
-      title: 'No fonts found',
-      message: 'FontCook couldn\'t find any fonts matching your search. Try different ingredients!'
+      title: 'Aucun plat trouvé',
+      message: 'Le chef n\'a pas trouvé de police correspondant à votre recherche. Essayez avec d\'autres ingrédients !'
     };
     
     if (this.fontGrid) {
@@ -556,7 +613,7 @@ class SearchManager {
           <p>${emptyState.message}</p>
           <div class="no-results-actions">
             <button class="btn btn-primary" onclick="fontSearch.loadPopularFonts()">
-              🍳 View popular fonts
+              🍳 Voir les polices populaires
             </button>
           </div>
         </div>
@@ -567,8 +624,8 @@ class SearchManager {
   showError(message, errorType = 'error') {
     const errorState = window.fontAPI ? window.fontAPI.getEmptyStateMessage(errorType) : {
       icon: '🔥',
-      title: 'Oops! Something went wrong',
-      message: message || 'An error occurred in the kitchen. The chef is trying to fix it!'
+      title: 'Oops ! Quelque chose a brûlé',
+      message: message || 'Une erreur s\'est produite en cuisine. Le chef essaie de réparer ça !'
     };
     
     if (this.fontGrid) {
@@ -579,10 +636,10 @@ class SearchManager {
           <p>${errorState.message}</p>
           <div class="error-actions">
             <button class="btn btn-secondary" onclick="location.reload()">
-              🔄 Restart
+              🔄 Recommencer
             </button>
             <button class="btn btn-primary" onclick="fontSearch.loadPopularFonts()">
-              🍳 Fallback mode
+              🍳 Mode dégradé
             </button>
           </div>
         </div>
@@ -722,62 +779,31 @@ class SearchManager {
     });
   }
 
-  copyFontCodeWithWeights(fontFamily, fontName = '') {
+  copyFontCode(fontFamily, fontName = '', buttonElement = null) {
+    // Enhanced CSS code with complete integration
     const fontFamilyClean = fontFamily.split(',')[0].trim().replace(/['"]/g, '');
-    
-    // Find the font card that contains the clicked button
-    const fontCards = document.querySelectorAll('.font-card-enhanced');
-    let selectedWeights = [];
-    
-    for (let card of fontCards) {
-      const cardTitle = card.querySelector('h3').textContent;
-      if (cardTitle === fontName) {
-        const selectedButtons = card.querySelectorAll('.weight-btn.selected');
-        selectedWeights = Array.from(selectedButtons).map(btn => btn.dataset.weight);
-        break;
-      }
-    }
-    
-    // Default to 400 if no weights selected
-    if (selectedWeights.length === 0) {
-      selectedWeights = ['400'];
-    }
-    
-    // Generate CSS with selected weights
-    const weightsString = selectedWeights.join(';');
-    const googleFontsUrl = `https://fonts.googleapis.com/css2?family=${encodeURIComponent(fontFamilyClean)}:wght@${selectedWeights.join(';')}&display=swap`;
-    
     const code = `/* ${fontName || fontFamilyClean} - Generated by FontCook */
 
-/* Google Fonts Import */
-@import url('${googleFontsUrl}');
-
-/* Base font family */
+/* CSS styles */
 .${fontFamilyClean.toLowerCase().replace(/\s+/g, '-')}-font {
   font-family: ${fontFamily};
   font-size: ${this.currentSize}px;
   line-height: 1.4;
 }
 
-/* Weight variations */
-${selectedWeights.map(weight => {
-  const weightName = this.getWeightName(parseInt(weight));
-  return `.${fontFamilyClean.toLowerCase().replace(/\s+/g, '-')}-${weight} {
-  font-family: ${fontFamily};
-  font-weight: ${weight}; /* ${weightName} */
+/* Usage examples */
+.title { 
+  font-family: ${fontFamily}; 
+  font-size: 32px; 
+  font-weight: 600; 
+}
+.body { 
+  font-family: ${fontFamily}; 
+  font-size: 16px; 
+  font-weight: 400; 
 }`;
-}).join('\n\n')}`;
 
-    // Create success message with weights info
-    const weightsText = selectedWeights.map(w => `${w} (${this.getWeightName(parseInt(w))})`).join(', ');
-    const message = `CSS copied for ${fontName || fontFamilyClean} with weights: ${weightsText}`;
-    
-    this.copyToClipboard(code, message);
-  }
-
-  copyFontCode(fontFamily, fontName = '', buttonElement = null) {
-    // Fallback for old function calls
-    this.copyFontCodeWithWeights(fontFamily, fontName);
+    this.copyToClipboard(code, `CSS de ${fontName || fontFamilyClean} copié !`, buttonElement);
   }
 
   copyGoogleFontsIntegration(fontFamily) {
@@ -875,13 +901,8 @@ body {
   }
 
   showNotification(message, type = 'info') {
-    // Stack notifications by adjusting positions
-    const existingNotifications = document.querySelectorAll('.notification');
-    const stackOffset = existingNotifications.length * 80; // 80px spacing between notifications
-    
     const notification = document.createElement('div');
     notification.className = `notification notification-${type}`;
-    notification.style.top = `calc(var(--space-lg) + ${stackOffset}px)`;
     notification.innerHTML = `
       <div class="notification-content">
         <span class="notification-icon">${type === 'success' ? '✅' : type === 'error' ? '❌' : 'ℹ️'}</span>
@@ -895,23 +916,10 @@ body {
       notification.classList.add('show');
     }, 100);
     
-    // Auto-remove after 5 seconds for success messages (longer for better readability)
-    const duration = type === 'success' ? 5000 : 4000;
     setTimeout(() => {
       notification.classList.add('hide');
-      setTimeout(() => {
-        notification.remove();
-        // Restack remaining notifications
-        this.restackNotifications();
-      }, 300);
-    }, duration);
-  }
-
-  restackNotifications() {
-    const notifications = document.querySelectorAll('.notification');
-    notifications.forEach((notification, index) => {
-      notification.style.top = `calc(var(--space-lg) + ${index * 80}px)`;
-    });
+      setTimeout(() => notification.remove(), 300);
+    }, 4000);
   }
 
   delay(ms) {
