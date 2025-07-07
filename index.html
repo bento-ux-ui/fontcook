@@ -123,25 +123,19 @@
 
     <!-- Main Content -->
     <main class="main" id="main-content" role="main">
-        <!-- Tags Section -->
-        <section class="tags-section" id="tags" aria-labelledby="tags-heading">
+        <!-- Animated Examples Section -->
+        <section class="examples-section" id="examples" aria-labelledby="examples-heading">
             <div class="container">
-                <div class="tags-intro">
-                    <h2 id="tags-heading" class="visually-hidden">Font Style Categories</h2>
-                    <p class="tags-description">Find your perfect font in just a few words.</p>
+                <div class="examples-intro">
+                    <h2 id="examples-heading" class="visually-hidden">Search Examples</h2>
+                    <p class="examples-description">Find your perfect font in just a few words.</p>
                 </div>
-                <div class="search-tags" id="search-tags" role="group" aria-label="Popular font categories">
-                    <div class="popular-tags">
-                        <button class="tag-btn-large" data-tag="vintage" aria-label="Search for vintage style fonts">Vintage</button>
-                        <button class="tag-btn-large" data-tag="elegant" aria-label="Search for elegant style fonts">Elegant</button>
-                        <button class="tag-btn-large" data-tag="script" aria-label="Search for script style fonts">Script</button>
-                        <button class="tag-btn-large" data-tag="restaurant" aria-label="Search for restaurant themed fonts">Restaurant</button>
-                        <button class="tag-btn-large" data-tag="tech" aria-label="Search for technology themed fonts">Tech</button>
-                        <button class="tag-btn-large" data-tag="beauty" aria-label="Search for beauty themed fonts">Beauty</button>
-                        <button class="tag-btn-large" data-tag="sport" aria-label="Search for sport themed fonts">Sport</button>
-                        <button class="tag-btn-large" data-tag="luxury" aria-label="Search for luxury themed fonts">Luxury</button>
-                        <button class="tag-btn-large" data-tag="kids" aria-label="Search for kid-friendly fonts">Kids</button>
-                        <button class="tag-btn-large" data-tag="automotive" aria-label="Search for automotive themed fonts">Auto</button>
+                <div class="animated-examples" id="animated-examples" role="region" aria-label="Animated search examples">
+                    <div class="example-container">
+                        <span class="example-prefix">Try searching: "</span>
+                        <span class="animated-text" id="animated-text" aria-live="polite"></span>
+                        <span class="cursor">|</span>
+                        <span class="example-suffix">"</span>
                     </div>
                 </div>
             </div>
@@ -236,7 +230,7 @@
     <script src="scripts/enhanced-semantic-dictionary.js" defer></script>
     <script src="scripts/theme.js" defer></script>
     <script src="scripts/api.js" defer></script>
-    <script src="scripts/tags.js" defer></script>
+    <script src="scripts/animated-examples.js" defer></script>
     <script src="scripts/search.js" defer></script>
     <script src="scripts/app.js" defer></script>
     

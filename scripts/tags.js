@@ -158,44 +158,15 @@ class TagsManager {
   }
 
   setupTagButtons() {
-    const tagButtons = document.querySelectorAll('.tag-btn');
-    
-    tagButtons.forEach(button => {
-      button.addEventListener('click', (e) => {
-        const tag = e.target.getAttribute('data-tag');
-        this.selectTag(tag, button);
-      });
-    });
+    // Tag buttons are now replaced by animated examples
+    // This method is kept for compatibility but does nothing
+    console.log('🎭 FontCook: Tag buttons replaced with animated examples');
   }
 
   selectTag(tag, buttonElement) {
-    // Toggle tag selection
-    buttonElement.classList.toggle('active');
-    
-    // Update search input
-    const searchInput = document.getElementById('search-input');
-    if (searchInput) {
-      const currentValue = searchInput.value.trim();
-      const tags = currentValue.split(',').map(t => t.trim()).filter(t => t);
-      
-      if (buttonElement.classList.contains('active')) {
-        if (!tags.includes(tag)) {
-          tags.push(tag);
-        }
-      } else {
-        const index = tags.indexOf(tag);
-        if (index > -1) {
-          tags.splice(index, 1);
-        }
-      }
-      
-      searchInput.value = tags.join(', ');
-      
-      // Trigger search
-      if (window.fontSearch) {
-        window.fontSearch.handleSearch(searchInput.value);
-      }
-    }
+    // Legacy method kept for compatibility
+    // Tag functionality now handled by animated examples and search
+    console.log('🎭 FontCook: Tag selection now handled by animated examples');
   }
 
   setupAutoSuggestions() {
@@ -343,18 +314,9 @@ class TagsManager {
   }
 
   updateTagButtons(selectedTerms) {
-    const tagButtons = document.querySelectorAll('.tag-btn');
-    
-    tagButtons.forEach(button => {
-      const tag = button.getAttribute('data-tag');
-      const isSelected = selectedTerms.some(term => 
-        term.toLowerCase() === tag.toLowerCase() ||
-        (this.synonymsMap[term.toLowerCase()] && 
-         this.synonymsMap[term.toLowerCase()].includes(tag))
-      );
-      
-      button.classList.toggle('active', isSelected);
-    });
+    // Tag buttons no longer exist - replaced by animated examples
+    // Method kept for compatibility
+    console.log('🎭 FontCook: Tag buttons update skipped - using animated examples');
   }
 
   // Public API
