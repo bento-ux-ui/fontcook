@@ -25,18 +25,27 @@ class SearchManager {
     this.currentPreviewText = 'The quick brown fox jumps over the lazy dog';
     this.currentSize = 18;
     
-    // Use the massive semantic dictionary (5000+ words!)
+    // Use the revolutionary semantic intelligence engine
     try {
+      // Load enhanced semantic engine if available
+      if (typeof AdvancedSemanticEngine !== 'undefined') {
+        this.advancedEngine = new AdvancedSemanticEngine();
+        console.log('🧠 FontCook: Advanced Semantic Engine loaded with', Object.keys(this.advancedEngine.fontDatabase).length, 'fonts profiled');
+      }
+      
+      // Fallback to original system
       this.semanticDictionary = (typeof SEMANTIC_DICTIONARY !== 'undefined' && SEMANTIC_DICTIONARY) ? SEMANTIC_DICTIONARY : {};
       this.keywordCollections = (typeof KEYWORD_COLLECTIONS !== 'undefined' && KEYWORD_COLLECTIONS) ? KEYWORD_COLLECTIONS : {};
-      this.phraseProcessor = new PhraseProcessor();
+      this.phraseProcessor = (typeof PhraseProcessor !== 'undefined') ? new PhraseProcessor() : null;
+      
       console.log('🍳 FontCook: Enhanced semantic dictionary loaded:', Object.keys(this.semanticDictionary).length, 'concepts');
       console.log('🍳 FontCook: Keyword collections loaded:', Object.keys(this.keywordCollections).length, 'categories');
     } catch (error) {
-      console.warn('🍳 FontCook: Error loading semantic dictionary:', error);
+      console.warn('🍳 FontCook: Error loading semantic systems:', error);
       this.semanticDictionary = {};
       this.keywordCollections = {};
       this.phraseProcessor = null;
+      this.advancedEngine = null;
     }
 
     this.init();
@@ -325,8 +334,46 @@ class SearchManager {
       
       let expandedQuery, searchContext;
       
-      // Use intelligent search if available, fallback to legacy
-      if (this.phraseProcessor && typeof intelligentFontSearch !== 'undefined') {
+      // Use revolutionary advanced engine if available
+      if (this.advancedEngine) {
+        const advancedResults = this.advancedEngine.deepSemanticSearch(query);
+        
+        // Extract font names for API search
+        const fontNames = new Set();
+        advancedResults.forEach(result => {
+          fontNames.add(result.font);
+          // Also add related terms for broader search
+          if (this.advancedEngine.fontDatabase[result.font]) {
+            const fontData = this.advancedEngine.fontDatabase[result.font];
+            fontData.psychology?.slice(0, 3).forEach(term => fontNames.add(term));
+            fontData.themes?.slice(0, 3).forEach(term => fontNames.add(term));
+          }
+        });
+        
+        expandedQuery = Array.from(fontNames).slice(0, 25).join(' ');
+        searchContext = {
+          advanced: true,
+          results: advancedResults,
+          confidence: advancedResults.length > 0 ? advancedResults[0].confidence : 0,
+          interpretation: this.advancedEngine.generateInterpretation(query, advancedResults)
+        };
+        
+        console.log('🚀 Advanced Semantic Search:', {
+          query: query,
+          interpretation: searchContext.interpretation,
+          confidence: searchContext.confidence,
+          fontsFound: advancedResults.length,
+          topFonts: advancedResults.slice(0, 5).map(r => r.font)
+        });
+        
+        // Show interpretation for high confidence results
+        if (searchContext.confidence > 60) {
+          this.showSearchInterpretation(searchContext.interpretation);
+        }
+        
+      } 
+      // Fallback to intelligent search
+      else if (this.phraseProcessor && typeof intelligentFontSearch !== 'undefined') {
         const intelligentResults = intelligentFontSearch(query);
         
         // Extract all synonyms from intelligent results for API search
@@ -417,9 +464,15 @@ class SearchManager {
   }
 
   displayResults(results, title = null, searchContext = null) {
-    // Apply intelligent scoring if available, fallback to legacy
+    // Apply advanced scoring if available
     if (searchContext) {
-      if (searchContext.intelligence) {
+      if (searchContext.advanced) {
+        // Use advanced semantic engine scoring
+        results = results.map(font => ({
+          ...font,
+          relevanceScore: this.scoreAdvancedRelevance(font, searchContext.results)
+        })).sort((a, b) => (b.relevanceScore || 0) - (a.relevanceScore || 0));
+      } else if (searchContext.intelligence) {
         // Use intelligent search scoring
         results = results.map(font => ({
           ...font,
@@ -804,6 +857,7 @@ class SearchManager {
     // Default to 400 if no weights selected
     if (selectedWeights.length === 0) {
       selectedWeights = ['400'];
+      console.log('⚠️ No weights selected, defaulting to 400');
     }
     
     // Generate CSS with selected weights
@@ -834,6 +888,13 @@ ${selectedWeights.map(weight => {
     // Create success message with weights info
     const weightsText = selectedWeights.map(w => `${w} (${this.getWeightName(parseInt(w))})`).join(', ');
     const message = `CSS copied for ${fontName || fontFamilyClean} with weights: ${weightsText}`;
+    
+    // Debug log
+    console.log('🍳 Copy CSS:', {
+      fontName: fontName || fontFamilyClean,
+      selectedWeights,
+      message
+    });
     
     this.copyToClipboard(code, message);
   }
@@ -882,18 +943,16 @@ body {
         this.showNotification(successMessage, 'success');
         this.updateCopyButton(buttonElement, true);
       }).catch(() => {
-        this.fallbackCopy(text);
-        this.showNotification(successMessage, 'success');
+        this.fallbackCopy(text, successMessage);
         this.updateCopyButton(buttonElement, true);
       });
     } else {
-      this.fallbackCopy(text);
-      this.showNotification(successMessage, 'success');
+      this.fallbackCopy(text, successMessage);
       this.updateCopyButton(buttonElement, true);
     }
   }
 
-  fallbackCopy(text) {
+  fallbackCopy(text, successMessage = 'CSS copied!') {
     const textArea = document.createElement('textarea');
     textArea.value = text;
     textArea.style.position = 'fixed';
@@ -905,9 +964,9 @@ body {
     
     try {
       document.execCommand('copy');
-      this.showNotification('CSS copied!', 'success');
+      this.showNotification(successMessage, 'success');
     } catch (err) {
-      this.showNotification('Copy error', 'error');
+      this.showNotification('Copy error - please try again', 'error');
     }
     
     document.body.removeChild(textArea);
@@ -938,6 +997,9 @@ body {
   }
 
   showNotification(message, type = 'info') {
+    // Debug log to verify the function is called
+    console.log('🔔 Notification:', { message, type });
+    
     // Stack notifications by adjusting positions
     const existingNotifications = document.querySelectorAll('.notification');
     const stackOffset = existingNotifications.length * 80; // 80px spacing between notifications
@@ -954,9 +1016,12 @@ body {
     
     document.body.appendChild(notification);
     
+    // Force layout calculation
+    notification.offsetHeight;
+    
     setTimeout(() => {
       notification.classList.add('show');
-    }, 100);
+    }, 50);
     
     // Auto-remove after 5 seconds for success messages (longer for better readability)
     const duration = type === 'success' ? 5000 : 4000;
@@ -1005,6 +1070,51 @@ body {
   }
 
   // === INTELLIGENT SEARCH FUNCTIONS ===
+
+  // Score font relevance using advanced semantic engine
+  scoreAdvancedRelevance(font, advancedResults) {
+    let score = 0;
+    const fontName = this.normalizeString(font.family);
+    
+    // Get font data from advanced engine if available
+    if (this.advancedEngine && this.advancedEngine.fontDatabase) {
+      const fontData = this.advancedEngine.fontDatabase[font.family];
+      if (fontData) {
+        // Boost score for fonts with rich psychological profiles
+        if (fontData.psychology && fontData.psychology.length > 0) {
+          score += 20;
+        }
+        if (fontData.emotions && fontData.emotions.length > 0) {
+          score += 15;
+        }
+        if (fontData.industries && fontData.industries.length > 0) {
+          score += 10;
+        }
+      }
+    }
+    
+    // Score based on advanced search results
+    if (advancedResults && advancedResults.length > 0) {
+      advancedResults.forEach(result => {
+        if (result.font === font.family) {
+          score += result.score * 2; // Direct font match
+        } else {
+          // Check for partial matches
+          const normalizedResult = this.normalizeString(result.font);
+          if (fontName.includes(normalizedResult) || normalizedResult.includes(fontName)) {
+            score += result.score;
+          }
+        }
+        
+        // Add contextual relevance
+        if (result.context) {
+          score += result.context.length * 2;
+        }
+      });
+    }
+    
+    return Math.round(score);
+  }
 
   // Score font relevance using intelligent search results
   scoreIntelligentRelevance(font, intelligentResults) {
@@ -1099,5 +1209,24 @@ document.addEventListener('DOMContentLoaded', () => {
   fontSearch = new SearchManager();
 });
 
-// Export for global access
+// Export for global access and testing
 window.fontSearch = fontSearch;
+
+// Test function for notifications
+window.testNotification = function() {
+  if (fontSearch) {
+    fontSearch.showNotification('Test notification - this should be visible!', 'success');
+  } else {
+    console.log('FontSearch not initialized yet');
+  }
+};
+
+// Test function for CSS copy
+window.testCSSCopy = function() {
+  if (fontSearch) {
+    const testCode = '/* Test CSS */\nbody { font-family: "Test Font", sans-serif; }';
+    fontSearch.copyToClipboard(testCode, 'Test CSS copied successfully with custom message!');
+  } else {
+    console.log('FontSearch not initialized yet');
+  }
+};
